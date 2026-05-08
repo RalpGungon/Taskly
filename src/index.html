@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- FONTAWESOME CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
+        integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <!-- GOOGLE FONTS -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,100..1000&display=swap"
+        rel="stylesheet">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="./style.css">
+    <title>Taskly</title>
+</head>
+
+<body>
+
+    <div id="wrapper">
+        <!-- SIDEBAR -->
+        <nav>
+            <!-- NAV LOGO -->
+            <div class="logo">
+                <!-- <h2>Taskly</h2> -->
+                <img src="/images/taskly_logo.png" alt="Image">
+            </div>
+
+            <!-- MENU LIST -->
+            <div class="menu">
+                <h3 class="menu-label">MENU</h3>
+                <ul class="menu__list">
+                    <li class="menu-btn" data-status="all">
+                        <i class="fa-solid fa-border-all"></i>
+                        All Tasks <span class="nav-badge" id="allBadge"></span>
+                    </li>
+                    <li class="menu-btn" data-status="today">
+                        <i class="fa-regular fa-clock "></i>
+                        Today <span class="nav-badge" id="todayBadge"></span>
+                    </li>
+                    <li class="menu-btn" data-status="upcoming"><i class="fa-regular fa-calendar"></i>Upcoming</li>
+                    <li class="menu-btn" data-status="priority"><i class="fa-regular fa-star "></i>Priority</li>
+                    <li class="menu-btn" data-status="completed"><i class="fa-solid fa-check "></i>Completed</li>
+                </ul>
+            </div>
+
+            <!-- CATERGORIES LIST -->
+            <div class="categories">
+                <h3 class="categories-label">CATEGORIES</h3>
+                <ul class="categories__list">
+                    <li class="category-btn" data-category="Work"> <span class="nav-categories-dot"
+                            id="nav-work-dot"></span> Work</li>
+                    <li class="category-btn" data-category="Personal"> <span class="nav-categories-dot"
+                            id="nav-personal-dot"></span>Personal
+                    </li>
+                    <li class="category-btn" data-category="Health"> <span class="nav-categories-dot"
+                            id="nav-health-dot"></span> Health</li>
+                    <li class="category-btn" data-category="Learning"><span class="nav-categories-dot"
+                            id="nav-learning-dot"></span>Learning</li>
+                </ul>
+            </div>
+
+            <!-- USER -->
+            <div class="profile">
+                <div class="user">
+                    <div class="user-avatar">RL</div>
+                    <div class="user-box">
+                        <h4 class="username">Ralp L.</h4>
+                        <p class="free-plan__text">Free plan</p>
+                    </div>
+
+                </div>
+                <div class="logout-icon">
+                    <i class="fa-solid fa-arrow-left"></i>
+                </div>
+            </div>
+        </nav>
+
+
+        <!-- MAIN CONTENT -->
+        <div id="main-content">
+            <header>
+                <h2 class="greeting">Good morning</h2>
+                <!-- <em class="greeting__name">Ralp.</em> -->
+                <div class="task-summary">
+                    <p class="task-summary__text">You have 5 tasks remaining today.</p>
+                    <span class="task-summary__date">Saturday, April 11</span>
+                </div>
+            </header>
+
+            <!-- STATS ROW -->
+            <div class="stats-row">
+                <div class="stat-card">
+                    <h2 class="stat-val" id="stat-total"></h2>
+                    <p class="stat-label">Total tasks</p>
+                    <div class="stat-bar">
+                        <div class="stat-fill"></div>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <h2 class="stat-val stat-accent" id="stat-done"></h2>
+                    <p class="stat-label">Completed</p>
+                    <div class="stat-bar">
+                        <div class="stat-fill" id="done-bar"></div>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <h2 class="stat-val" id="stat-pending"></h2>
+                    <p class="stat-label">Pending</p>
+                    <div class="stat-bar">
+                        <div class="stat-fill" id="pending-bar"></div>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <h2 class="stat-val" id="stat-high"></h2>
+                    <p class="stat-label">High priority</p>
+                    <div class="stat-bar">
+                        <div class="stat-fill" id="priority-bar"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="task-toolbar">
+                <div class="filter-buttons">
+                    <button type="button" class="filter-btn filter-btn__active" data-status="all">All</button>
+                    <button type="button" class="filter-btn" data-status="active">Active</button>
+                    <button type="button" class="filter-btn" data-status="done">Done</button>
+                </div>
+                <!-- Add task button-->
+                <button type="button" class="quick-task__btn" role="button"><i class="fa-solid fa-plus"></i>Add
+                    task</button>
+            </div>
+
+
+            <main id="task-area">
+                <section class="active-section task-section taskSection__active" data-task-status="active">
+                    <div class="task-section__head">
+                        <span class="task-section__title">Active</span>
+                        <div class="task-section__line"></div>
+                        <span class="task-section__count" id="active-count"></span>
+                    </div>
+
+                    <div class="emptyTask">
+                        <div class="empty-icon">
+                            <img src="/images/accept.png" alt="Icon">
+                        </div>
+                        <div class="empty-title">All caught up!</div>
+                        <div class="empty-sub">No active tasks. Add a new one above</div>
+                    </div>
+
+
+                    <div class="task-list activeList" id="activeList">
+
+                        <!-- TASK CARD 1 -->
+                        <div class="task-card high-priority">
+                            <div class="task-card__checkbox">
+                                <input type="checkbox" aria-label="Mark task as complete">
+                            </div>
+                            <div class="task-card__content">
+                                <h3 class="task-card__title">Finalize Quizly UI mockup screens</h3>
+                                <p class="task-card__description">Complete all 6 screens for the portfolio mockup.
+                                </p>
+                                <div class="task-card__meta">
+                                    <span class="tag tag-red priority">High</span>
+                                    <span class="tag tag-blue category">Work</span>
+                                    <span class="task-card__time">
+                                        <i class="fa-regular fa-clock"></i>
+                                        3:00PM</span>
+                                </div>
+                            </div>
+                            <div class="task-actions">
+                                <i class="fa-solid fa-arrow-right"></i>
+                                <i class="fa-solid fa-trash"></i>
+                            </div>
+                        </div>
+
+                        <!-- TASK CARD 2 -->
+                        <div class="task-card med-priority">
+                            <div class="task-card__checkbox">
+                                <input type="checkbox" aria-label="Mark task as complete">
+                            </div>
+                            <div class="task-card__content">
+                                <h3 class="task-card__title">Review portfolio project architecture</h3>
+                                <p class="task-card__description">Check the tech stack and system design document.
+                                </p>
+                                <div class="task-card__meta">
+                                    <span class="tag tag-amber priority">Med</span>
+                                    <span class="tag tag-blue category">Work</span>
+                                    <span class="task-card__time">
+                                        <i class="fa-regular fa-clock"></i>
+                                        5:00PM</span>
+                                </div>
+                            </div>
+                            <div class="task-actions">
+                                <i class="fa-solid fa-arrow-right"></i>
+                                <i class="fa-solid fa-trash"></i>
+                            </div>
+                        </div>
+
+                        <!-- TASK CARD 3 -->
+                        <div class="task-card low-priority">
+                            <div class="task-card__checkbox">
+                                <input type="checkbox" aria-label="Mark task as complete">
+                            </div>
+                            <div class="task-card__content">
+                                <h3 class="task-card__title">Go for a 30-minute walk</h3>
+                                <p class="task-card__description">Take a break and get some fresh air.
+                                </p>
+                                <div class="task-card__meta">
+                                    <span class="tag tag-green priority">Low</span>
+                                    <span class="tag tag-amber category">Health</span>
+                                    <span class="task-card__time">
+                                        <i class="fa-regular fa-clock"></i>
+                                        8:00PM</span>
+                                </div>
+                            </div>
+                            <div class="task-actions">
+                                <i class="fa-solid fa-arrow-right"></i>
+                                <i class="fa-solid fa-trash"></i>
+                            </div>
+                        </div>
+
+                        <!-- TASK CARD 4 -->
+                        <div class="task-card low-priority">
+                            <div class="task-card__checkbox">
+                                <input type="checkbox" aria-label="Mark task as complete">
+                            </div>
+                            <div class="task-card__content">
+                                <h3 class="task-card__title">Write weekly journal entry</h3>
+                                <p class="task-card__description">Reflect on the week - wins, learnings, and goals.
+                                </p>
+                                <div class="task-card__meta">
+                                    <span class="tag tag-green priority">Low</span>
+                                    <span class="tag tag-green category">Personal</span>
+                                    <span class="task-card__time">
+                                        <i class="fa-regular fa-clock"></i>
+                                        11:40PM</span>
+                                </div>
+                            </div>
+                            <div class="task-actions">
+                                <i class="fa-solid fa-arrow-right"></i>
+                                <i class="fa-solid fa-trash"></i>
+                            </div>
+                        </div>
+
+                        <!-- TASK CARD 5 -->
+                        <div class="task-card med-priority">
+                            <div class="task-card__checkbox">
+                                <input type="checkbox" aria-label="Mark task as complete">
+                            </div>
+                            <div class="task-card__content">
+                                <h3 class="task-card__title">Study TypeScript generics</h3>
+                                <p class="task-card__description">Go through the TypeScript handbook chapter 4.
+                                </p>
+                                <div class="task-card__meta">
+                                    <span class="tag tag-amber priority">Med</span>
+                                    <span class="tag tag-gray category">Learning</span>
+                                    <span class="task-card__time">
+                                        <i class="fa-regular fa-clock"></i>
+                                        7:00 PM</span>
+                                </div>
+                            </div>
+                            <div class="task-actions">
+                                <i class="fa-solid fa-arrow-right"></i>
+                                <i class="fa-solid fa-trash"></i>
+                            </div>
+                        </div>
+
+                    </div>
+                </section>
+                <section class="done-section task-section taskSection__active" data-task-status="done">
+                    <div class="task-section__head">
+                        <span class="task-section__title">Completed</span>
+                        <div class="task-section__line"></div>
+                        <span class="task-section__count completed-section_count" id="active-count">s</span>
+                    </div>
+                    <div class="task-list" id="doneList">
+
+                        <!-- COMPLETE CARD 1 -->
+                        <div class="task-card done med-priority">
+                            <div class="task-card__checkbox">
+                                <input type="checkbox" aria-label="Mark task as complete" checked>
+                            </div>
+                            <div class="task-card__content">
+                                <h3 class="task-card__title">Set up project folder structure</h3>
+                                <p class="task-card__description">Organize the src folder with proper conventions.
+                                </p>
+                                <div class="task-card__meta">
+                                    <span class="tag tag-amber priority">Med</span>
+                                    <span class="tag tag-blue category">Work</span>
+                                    <span class="task-card__time">
+                                        <i class="fa-regular fa-clock"></i>
+                                        9:00 AM</span>
+
+                                </div>
+                            </div>
+                            <div class="task-actions">
+                                <i class="fa-solid fa-arrow-right"></i>
+                                <i class="fa-solid fa-trash"></i>
+                            </div>
+                        </div>
+
+                        <!-- COMPLETE CARD 2 -->
+                        <div class="task-card done low-priority">
+                            <div class="task-card__checkbox">
+                                <input type="checkbox" aria-label="Mark task as complete" checked>
+                            </div>
+                            <div class="task-card__content">
+                                <h3 class="task-card__title">Pick color palette and typography</h3>
+                                <p class="task-card__description">Research and finalize the visual design system.
+                                </p>
+                                <div class="task-card__meta">
+                                    <span class="tag tag-green priority">Low</span>
+                                    <span class="tag tag-blue category">Work</span>
+                                    <span class="task-card__time">
+                                        <i class="fa-regular fa-clock"></i>
+                                        10:00 AM</span>
+                                </div>
+                            </div>
+                            <div class="task-actions">
+                                <i class="fa-solid fa-arrow-right"></i>
+                                <i class="fa-solid fa-trash"></i>
+                            </div>
+                        </div>
+                        <!-- COMPLETE CARD 3 -->
+                        <div class="task-card done low-priority">
+                            <div class="task-card__checkbox">
+                                <input type="checkbox" aria-label="Mark task as complete" checked>
+                            </div>
+                            <div class="task-card__content">
+                                <h3 class="task-card__title">Morning stretching routine</h3>
+                                <p class="task-card__description">15 minutes of light stretching.
+                                </p>
+                                <div class="task-card__meta">
+                                    <span class="tag tag-green priority">Low</span>
+                                    <span class="tag tag-amber category">Health</span>
+                                    <span class="task-card__time">
+                                        <i class="fa-regular fa-clock"></i>
+                                        7:00 AM</span>
+                                </div>
+                            </div>
+
+                            <div class="task-actions">
+                                <i class="fa-solid fa-arrow-right"></i>
+                                <i class="fa-solid fa-trash"></i>
+                            </div>
+
+                        </div>
+
+                    </div>
+                </section>
+            </main>
+        </div>
+    </div>
+
+
+    <!-- MODALS -->
+
+    <!-- Quick Task Overlay -->
+    <div class="quick-task__overlay">
+        <div class="quick-task__wrap">
+            <div class="quick-task__box">
+                <div class="custom-icon task-form__open-btn">+</div>
+                <input class="add-input" type="text" placeholder="Add a new task... press Enter or click +">
+                <div class="chips-row">
+                    <span class="chip" id="chip-high" data-priority="high">High</span>
+                    <span class="chip" id="chip-med" data-priority="medium">Medium</span>
+                    <span class="chip" id="chip-low" data-priority="low">Low</span>
+                </div>
+                <button class="quickTaskBtn__submit" type="button">Add</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- New task form overlay -->
+    <div class="task-form__overlay">
+
+        <!-- Form -->
+        <form class="task-form">
+
+            <!-- Form header -->
+            <div class="task-form__header">
+                <h2 class="task-form-header__title">New task</h2>
+                <p class="task-form-header__sub">Fill in the details to create a new task.</p>
+            </div>
+
+            <!-- Form group 1 -->
+            <div class="form-group">
+                <label class="form-group__label">Task name</label>
+                <input name="task-name" class="form-group__input" type="text" placeholder="What needs to be done?"
+                    required>
+            </div>
+
+            <!-- Form group 2 -->
+            <div class="form-group">
+                <label class="form-group__label">Description (optional)</label>
+                <textarea name="description" id="textarea" placeholder="Add more details..." required></textarea>
+            </div>
+
+            <!-- Form group 3 -->
+            <div class="form-group form-group__row">
+
+                <!-- Priority options -->
+                <div class="select-group">
+                    <label for="task-priority__label" class="priority-label">Priority</label>
+                    <select name="priority" id="task-priority" class="priority-options select" title="Priority">
+                        <option value="High">High priority</option>
+                        <option value="Medium">Medium priority</option>
+                        <option value="Low" selected>Low priority</option>
+                    </select>
+                </div>
+
+                <!-- Category options -->
+                <div class="select-group">
+                    <label for="task-category__label" class="category-label">Category</label>
+                    <select name="category" id="task-category" class="category-options select" title="Category">
+                        <option value="Work">Work</option>
+                        <option value="Personal" selected>Personal</option>
+                        <option value="Health">Health</option>
+                        <option value="Learning">Learning</option>
+                    </select>
+                </div>
+
+            </div>
+
+            <!-- Form group 4 -->
+            <div class="form-group">
+                <label for="task-due-time" class="form-group__label">Due time</label>
+                <input name="due-time" class="form-group__input" type="time" id="task-due-time" title="Due time"
+                    required>
+            </div>
+
+            <!-- Form group 5 -->
+            <div class="form-group">
+                <div class="form-group__actions">
+                    <button type="button" class="task-form__btn form-btn-cancel">Cancel</button>
+                    <button type="submit" class="task-form__btn btn-addTask">Add task</button>
+                </div>
+            </div>
+
+        </form>
+
+    </div>
+
+    <div class="task-detail-panel">
+        <div class="task__header">
+            <h3 class="task__title">Task details</h3>
+            <i class="task__close fa-solid fa-xmark"></i>
+        </div>
+
+        <div class="task__name">Finalize Quizly UI mockup screens</div>
+
+        <div class="task__body">
+            <label for="details" class="label__details">Details</label>
+
+            <div class="task__meta task__meta--priority">
+                <label class="label__priority">Priority</label>
+                <span class="detail-priority"></span>
+            </div>
+
+            <div class="task__meta task__meta--category">
+                <label class="label__category">Category</label>
+                <span class="detail-category"></span>
+            </div>
+
+            <div class="task__meta task__meta--duetime">
+                <label class="label__dueTime">Due time</label>
+                <span class="detail-due-time"></span>
+            </div>
+
+            <div class="task__meta task__meta--status">
+                <label class="label__status">Status</label>
+                <span class="detail-status"></span>
+            </div>
+
+            <div class="task__notes">
+                <label for="notes" class="label__note">Notes</label>
+                <textarea name="notes" id="notes" placeholder="Add notes here..."></textarea>
+            </div>
+        </div>
+        <button type="button" class="panel-delete-btn">Delete task</button>
+    </div>
+
+    <div class="notification"></div>
+
+    <script src="./script.js" defer></script>
+</body>
+
+</html>
