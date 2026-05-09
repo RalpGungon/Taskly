@@ -510,6 +510,9 @@ handleDelete(doneList);
 // When the arrow icon on a task card is clicked,
 // extract the task's details and display them in the side panel.
 // ============================================================
+
+let currentDescriptEl = null;
+
 const handleShowTaskDetails = function (element) {
   element.addEventListener("click", function (e) {
     const arrow = e.target.closest(".fa-arrow-right");
@@ -552,18 +555,41 @@ const handleShowTaskDetails = function (element) {
     panelCategory.textContent = category;
     panelDueTime.textContent = formattedDueTime;
     panelStatus.textContent = `${!checkbox.checked ? "Active" : "Completed"}`;
-    panelNote.textContent = description;
+    panelNote.value = description;
+
+    currentDescriptEl = descriptionEl;
 
     // Show the side panel
     panelContainer.classList.add("show-detail-panel");
   });
 };
+
 // Apply to both lists
 handleShowTaskDetails(activeList);
 handleShowTaskDetails(doneList);
 
 // Close the panel when the × button is clicked
 panelCloseBtn.addEventListener("click", hidePanel);
+
+const setupPanelNoteEditing = function () {
+  // Enable editing when user focuses the input
+  panelNote.addEventListener("focus", () => {
+    panelNote.readOnly = false;
+  });
+
+  // Lock input when user leaves the field
+  panelNote.addEventListener("blur", () => {
+    panelNote.readOnly = true;
+  });
+
+  // Update display text in real time while typing
+  panelNote.addEventListener("input", () => {
+    if (currentDescriptEl) {
+      currentDescriptEl.textContent = panelNote.value;
+    }
+  });
+};
+setupPanelNoteEditing();
 
 // ============================================================
 // PANEL DELETE BUTTON
