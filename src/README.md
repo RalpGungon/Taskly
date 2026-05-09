@@ -186,6 +186,7 @@ State resets on page refresh — this is a UI prototype, not a persistent app.
 | `handleDelete(listElement)`            | Attaches delete logic to trash icon clicks within a list                  |
 | `handleShowTaskDetails(element)`       | Attaches arrow-click logic to open the detail panel for a task            |
 | `animationFrame(cards)`                | Resets card animations using requestAnimationFrame for re-triggering      |
+| setupPanelNoteEditing()                | Editable notes field                                                      |
 
 ---
 
@@ -216,7 +217,6 @@ open index.html   # macOS
 - [ ] Recurring tasks
 - [ ] Export tasks as CSV or PDF
 - [ ] Subtask support
-- [ ] Editable notes field (in-memory)
 
 ---
 
