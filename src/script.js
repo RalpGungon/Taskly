@@ -50,6 +50,7 @@ const taskActionContainer = document.querySelector(".task-actions"); // Hover ac
 // --- Quick add input ---
 const quick__input = document.querySelector(".add-input"); // Text input for the quick add
 const quickTask__submit = document.querySelector(".quickTaskBtn__submit"); // Submit button for the quick add
+const taskNameInput = document.querySelector("input[name='~task-name']"); // Input field selected using the name attribute "~task-name"
 
 // --- View filter bar (All / Active / Done) ---
 const filter_buttons_container = document.querySelector(".filter-buttons"); // Container for filter buttons
@@ -213,7 +214,7 @@ quickTask__overlay.addEventListener("click", (e) => {
 // When the "Advanced" button is clicked, close quick add and open the full form
 taskForm__openBtn.addEventListener("click", () => {
   closeTaskOverlay(quickTask__overlay);
-  openTaskOverlay(taskForm__overlay);
+  openTaskOverlay(taskForm__overlay, taskNameInput);
 });
 
 // Close the full form overlay when the Cancel button is clicked
