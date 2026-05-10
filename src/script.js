@@ -181,8 +181,9 @@ displayDate(displayCurrentDate, today, locale);
 // ============================================================
 
 // Show an overlay by adding the visibility CSS class
-const openTaskOverlay = function (overlay) {
+const openTaskOverlay = function (overlay, input) {
   overlay.classList.add("modal-visible");
+  input.focus();
 };
 
 // Hide an overlay by removing the visibility CSS class
@@ -201,7 +202,7 @@ const handleClickOverlay = function (currEl, el) {
 
 // Open the quick add overlay when the add task button is clicked
 quickTask__btn.addEventListener("click", () => {
-  openTaskOverlay(quickTask__overlay);
+  openTaskOverlay(quickTask__overlay, quick__input);
 });
 
 // Close the quick add overlay when clicking the background
