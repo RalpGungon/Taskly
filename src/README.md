@@ -213,6 +213,7 @@ Taskly is currently a frontend-focused prototype emphasizing UI/UX and client-si
 | `handleShowTaskDetails(element)`       | Opens task detail panel                                      |
 | `animationFrame(cards)`                | Re-triggers card animations using `requestAnimationFrame`    |
 | `setupPanelNoteEditing()`              | Enables editable notes functionality inside the detail panel |
+| `clearInput()`                         | Clears quick add and full form task name input fields        |
 
 ---
 

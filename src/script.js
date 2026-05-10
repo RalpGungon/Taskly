@@ -50,7 +50,7 @@ const taskActionContainer = document.querySelector(".task-actions"); // Hover ac
 // --- Quick add input ---
 const quick__input = document.querySelector(".add-input"); // Text input for the quick add
 const quickTask__submit = document.querySelector(".quickTaskBtn__submit"); // Submit button for the quick add
-const taskNameInput = document.querySelector("input[name='~task-name']"); // Input field selected using the name attribute "~task-name"
+const taskNameInput = document.querySelector("input[name='task-name']"); // Input field selected using the name attribute "~task-name"
 
 // --- View filter bar (All / Active / Done) ---
 const filter_buttons_container = document.querySelector(".filter-buttons"); // Container for filter buttons
@@ -139,6 +139,15 @@ const showNotification = function (message) {
 const hidePanel = () => panelContainer.classList.remove("show-detail-panel");
 
 // ============================================================
+// CLEAR INPUT: clearInput
+// Clears the quick add and task name inputs.
+// ============================================================
+const clearInput = () => {
+  quick__input.value = "";
+  taskNameInput.value = "";
+};
+
+// ============================================================
 // GREETING: displayGreet
 // Displays a time-based greeting in the header.
 // Based on the hour: morning (< 12), afternoon (12–17), evening (>= 18).
@@ -182,9 +191,9 @@ displayDate(displayCurrentDate, today, locale);
 // ============================================================
 
 // Show an overlay by adding the visibility CSS class
-const openTaskOverlay = function (overlay, input) {
+const openTaskOverlay = function (overlay) {
   overlay.classList.add("modal-visible");
-  input.focus();
+  quick__input.focus();
 };
 
 // Hide an overlay by removing the visibility CSS class
@@ -194,7 +203,10 @@ const closeTaskOverlay = function (el) {
 
 // Close the overlay only when the background (not the content) is clicked
 const handleClickOverlay = function (currEl, el) {
-  if (currEl === el) closeTaskOverlay(el);
+  if (currEl === el) {
+    closeTaskOverlay(el);
+    clearInput();
+  }
 };
 
 // ============================================================
@@ -203,7 +215,7 @@ const handleClickOverlay = function (currEl, el) {
 
 // Open the quick add overlay when the add task button is clicked
 quickTask__btn.addEventListener("click", () => {
-  openTaskOverlay(quickTask__overlay, quick__input);
+  openTaskOverlay(quickTask__overlay);
 });
 
 // Close the quick add overlay when clicking the background
@@ -214,12 +226,15 @@ quickTask__overlay.addEventListener("click", (e) => {
 // When the "Advanced" button is clicked, close quick add and open the full form
 taskForm__openBtn.addEventListener("click", () => {
   closeTaskOverlay(quickTask__overlay);
-  openTaskOverlay(taskForm__overlay, taskNameInput);
+  openTaskOverlay(taskForm__overlay);
+  taskNameInput.focus();
+  clearInput();
 });
 
 // Close the full form overlay when the Cancel button is clicked
 formBtn__cancel.addEventListener("click", () => {
   closeTaskOverlay(taskForm__overlay);
+  clearInput();
 });
 
 // ============================================================
