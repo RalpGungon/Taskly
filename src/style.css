@@ -64,6 +64,15 @@ nav {
   overflow-y: auto;
 }
 
+nav::-webkit-scrollbar {
+  width: 8px;
+}
+
+nav::-webkit-scrollbar-thumb {
+  background: #999;
+  border-radius: 10px;
+}
+
 .logo {
   display: flex;
   align-items: center;
@@ -81,7 +90,7 @@ nav {
 }
 
 nav::-webkit-scrollbar-track {
-  background: #f5f2ec;
+  background-color: whitesmoke;
 }
 
 nav::-webkit-scrollbar-thumb {
@@ -500,6 +509,18 @@ nav::-webkit-scrollbar-thumb {
   height: 220px;
   padding-bottom: 10px;
   overflow-y: auto;
+}
+
+#task-area::-webkit-scrollbar {
+  width: 8px;
+}
+#task-area::-webkit-scrollbar-thumb {
+  background: #999;
+  border-radius: 10px;
+}
+#task-area::-webkit-scrollbar-track {
+  background: #fff;
+  border-radius: 10px;
 }
 
 /* Task list */
