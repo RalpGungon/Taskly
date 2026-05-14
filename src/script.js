@@ -51,6 +51,7 @@ const taskActionContainer = document.querySelector(".task-actions"); // Hover ac
 const quick__input = document.querySelector(".add-input"); // Text input for the quick add
 const quickTask__submit = document.querySelector(".quickTaskBtn__submit"); // Submit button for the quick add
 const taskNameInput = document.querySelector("input[name='task-name']"); // Input field selected using the name attribute "~task-name"
+const description = document.getElementById("textarea");
 
 // --- View filter bar (All / Active / Done) ---
 const filter_buttons_container = document.querySelector(".filter-buttons"); // Container for filter buttons
@@ -145,6 +146,7 @@ const hidePanel = () => panelContainer.classList.remove("show-detail-panel");
 const clearInput = () => {
   quick__input.value = "";
   taskNameInput.value = "";
+  description.value = "";
 };
 
 // ============================================================
@@ -248,7 +250,7 @@ function selectedPriority(selected_chip) {
   selected_chip.addEventListener("click", (e) => {
     // Clear all active chips before applying the new selection
     chips__priority.forEach((chip) =>
-      chip.classList.remove("selected-high", "selected-med", "selected-low"),
+      chip.classList.remove("selected-high", "selected-medium", "selected-low"),
     );
 
     // Apply the selection class based on the clicked chip's priority
@@ -807,4 +809,26 @@ menuList.addEventListener("click", (e) => {
     // Toggle "is-filtered" — true = hide, false = show
     card.classList.toggle("is-filtered", !showCard);
   });
+});
+
+// Dark mode
+const darkToggle = document.querySelector(".dark-toggle");
+const themeIcon = document.getElementById("themeIcon");
+const themeIconLabel = document.getElementById("themeLabel");
+const toggleTrack = document.querySelector(".toggle-track");
+const toggleThumb = document.querySelector(".toggle-thumb");
+
+darkToggle.addEventListener("click", () => {
+  const isDark = document.documentElement.classList.toggle("dark");
+  themeIcon.classList.remove("anim-sun", "anim-moon");
+
+  if (isDark) {
+    themeIcon.textContent = "🌙";
+    themeIcon.classList.add("anim-moon");
+    themeIconLabel.textContent = "Dark mode";
+  } else {
+    themeIcon.textContent = "☀️";
+    themeIcon.classList.add("anim-sun");
+    themeIconLabel.textContent = "Light mode";
+  }
 });
