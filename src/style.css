@@ -37,9 +37,9 @@
 }
 * {
   transition:
-    background-color 0.25s ease,
+    background 0.25s ease background-color 0.25s ease,
     border-color 0.25s ease,
-    color 0.15s ease;
+    color 0.25s ease;
 }
 
 body {
@@ -69,7 +69,7 @@ nav::-webkit-scrollbar {
 }
 
 nav::-webkit-scrollbar-thumb {
-  background: #999;
+  background-color: #999;
   border-radius: 10px;
 }
 
@@ -87,15 +87,6 @@ nav::-webkit-scrollbar-thumb {
 
 .logo h2 {
   color: #1d9e75;
-}
-
-nav::-webkit-scrollbar-track {
-  background-color: whitesmoke;
-}
-
-nav::-webkit-scrollbar-thumb {
-  background: #d0cec5;
-  border-radius: 4px;
 }
 
 .menu-label,
@@ -142,14 +133,14 @@ nav::-webkit-scrollbar-thumb {
 }
 
 .menu-btn.menu-active {
-  background: #e1f5ee;
+  background-color: #e1f5ee;
   color: #1d9e75;
   font-weight: 500;
   pointer-events: none;
 }
 
 .category-btn.category-active {
-  background: #e1f5ee;
+  background-color: #e1f5ee;
   color: #1d9e75;
   font-weight: 500;
   pointer-events: none;
@@ -205,11 +196,10 @@ nav::-webkit-scrollbar-thumb {
   cursor: pointer;
   -webkit-user-select: none;
   user-select: none;
-  transition: background 0.15s;
 }
 
 .dark-toggle:hover {
-  background: #ede9e1;
+  background-color: #ede9e1;
 }
 
 .toggle-icon {
@@ -267,33 +257,32 @@ nav::-webkit-scrollbar-thumb {
   width: 36px;
   height: 20px;
   border-radius: 20px;
-  background: #e4e0d7;
+  background-color: #e4e0d7;
   border: 0.5px solid rgba(44, 44, 42, 0.16);
   position: relative;
   display: flex;
   align-items: center;
   flex-shrink: 0;
-  transition: background 0.25s;
 }
 .dark .toggle-track {
-  background: var(--accent);
+  background-color: var(--accent);
 }
 
 .toggle-thumb {
   width: 14px;
   height: 14px;
   border-radius: 50%;
-  background: #888780;
+  background-color: #888780;
   position: absolute;
   left: 2px;
   transition:
-    transform 0.25s,
+    transform 0.25s ease,
     background-color 0.25s ease;
 }
 
 .dark .toggle-thumb {
   transform: translateX(16px);
-  background: #fff;
+  background-color: #fff;
 }
 
 .profile {
@@ -304,7 +293,6 @@ nav::-webkit-scrollbar-thumb {
   border-radius: 10px;
   border: 0.5px solid rgba(44, 44, 42, 0.1);
   cursor: pointer;
-  transition: background 0.15s;
 }
 
 .user {
@@ -458,21 +446,18 @@ nav::-webkit-scrollbar-thumb {
   border: 0.5px solid rgba(44, 44, 42, 0.16);
   border-radius: 20px;
   color: #888780;
-  transition:
-    background 0.15s,
-    border-color 0.15s;
-  background: transparent;
+  background-color: transparent;
   font-weight: 500;
   cursor: pointer;
 }
 
 .filter-btn:hover {
-  background: #ede9e1;
+  background-color: #ede9e1;
 }
 
 .filter-btn.filter-btn__active {
   color: #fff;
-  background: #2c2c2a;
+  background-color: #2c2c2a;
   border-color: #2c2c2a;
 }
 
@@ -487,7 +472,7 @@ nav::-webkit-scrollbar-thumb {
   border: 0.5px solid rgba(44, 44, 42, 0.16);
   border-radius: 20px;
   color: #888780;
-  background: transparent;
+  background-color: transparent;
   cursor: pointer;
   transition: background-color 0.15s box-shadow 0.15s;
 }
@@ -515,11 +500,11 @@ nav::-webkit-scrollbar-thumb {
   width: 8px;
 }
 #task-area::-webkit-scrollbar-thumb {
-  background: #999;
+  background-color: #999;
   border-radius: 10px;
 }
 #task-area::-webkit-scrollbar-track {
-  background: #fff;
+  background-color: #fff;
   border-radius: 10px;
 }
 
@@ -566,7 +551,7 @@ nav::-webkit-scrollbar-thumb {
 
 .task-card {
   position: relative;
-  background: #ffffff;
+  background-color: #ffffff;
   border: 0.5px solid rgba(44, 44, 42, 0.1);
   border-radius: 12px;
   padding: 14px 16px;
@@ -574,9 +559,6 @@ nav::-webkit-scrollbar-thumb {
   align-items: flex-start;
   gap: 13px;
   cursor: pointer;
-  transition:
-    border-color 0.15s,
-    background 0.15s;
   animation: fadeUp 0.3s ease both;
 }
 
@@ -642,11 +624,11 @@ nav::-webkit-scrollbar-thumb {
   white-space: nowrap;
 }
 .tag-red {
-  background: #fcebeb;
+  background-color: #fcebeb;
   color: #a32d2d;
 }
 .tag-blue {
-  background: #e6f1fb;
+  background-color: #e6f1fb;
   color: #185fa5;
 }
 .tag-gray {
@@ -654,11 +636,11 @@ nav::-webkit-scrollbar-thumb {
   color: #888780;
 }
 .tag-green {
-  background: #e1f5ee;
+  background-color: #e1f5ee;
   color: #085041;
 }
 .tag-amber {
-  background: #faeeda;
+  background-color: #faeeda;
   color: #633806;
 }
 .task-card__time {
@@ -744,7 +726,6 @@ nav::-webkit-scrollbar-thumb {
 
 .quick-task__wrap {
   width: 700px;
-  transition: all 0.5s;
   z-index: 99;
   animation: fadeUp 0.25s ease;
 }
@@ -757,7 +738,6 @@ nav::-webkit-scrollbar-thumb {
   border-radius: 14px;
   border: 0.5px solid rgba(44, 44, 42, 0.1);
   background-color: #ffffff;
-  transition: background-color 0.15s border-color 0.15s;
 }
 
 .quick-task__box:focus-within {
@@ -783,7 +763,7 @@ nav::-webkit-scrollbar-thumb {
   font-family: "DM Sans", sans-serif;
   font-size: 16px;
   color: #2c2c2a;
-  background: none;
+  background-color: none;
   border: none;
   outline: none;
 }
@@ -810,22 +790,22 @@ nav::-webkit-scrollbar-thumb {
 
 .chip.selected-high {
   color: #a32d2d;
-  background: #fcebeb;
+  background-color: #fcebeb;
   border-color: #f09595;
 }
 .chip.selected-medium {
   color: #633806;
-  background: #faeeda;
+  background-color: #faeeda;
   border-color: #fac775;
 }
 .chip.selected-low {
   color: #085041;
-  background: #e1f5ee;
+  background-color: #e1f5ee;
   border-color: #9fe1cb;
 }
 
 .quickTaskBtn__submit {
-  background: #1d9e75;
+  background-color: #1d9e75;
   color: #fff;
   border: none;
   border-radius: 8px;
@@ -859,7 +839,7 @@ nav::-webkit-scrollbar-thumb {
   display: flex;
   flex-direction: column;
   gap: 14px;
-  background: #ffffff;
+  background-color: #ffffff;
   border-radius: 20px;
   width: 100%;
   padding: 28px;
@@ -903,7 +883,7 @@ nav::-webkit-scrollbar-thumb {
 
 .form-group__input {
   width: 100%;
-  background: #f5f2ec;
+  background-color: #f5f2ec;
   border: 0.5px solid rgba(44, 44, 42, 0.16);
   border-radius: 10px;
   padding: 10px 13px;
@@ -911,7 +891,6 @@ nav::-webkit-scrollbar-thumb {
   font-size: 13.5px;
   color: #2c2c2a;
   outline: none;
-  transition: border-color 0.15s;
 }
 
 .form-group__input:focus,
@@ -921,7 +900,7 @@ nav::-webkit-scrollbar-thumb {
 
 #textarea {
   width: 100%;
-  background: #f5f2ec;
+  background-color: #f5f2ec;
   border: 0.5px solid rgba(44, 44, 42, 0.16);
   border-radius: 10px;
   padding: 10px 13px;
@@ -931,7 +910,6 @@ nav::-webkit-scrollbar-thumb {
   outline: none;
   resize: none;
   min-height: 80px;
-  transition: border-color 0.15s;
 }
 
 .form-group__row {
@@ -941,7 +919,7 @@ nav::-webkit-scrollbar-thumb {
 }
 .select {
   width: 100%;
-  background: #f5f2ec;
+  background-color: #f5f2ec;
   border: 0.5px solid rgba(44, 44, 42, 0.16);
   border-radius: 10px;
   padding: 10px 13px;
@@ -959,7 +937,7 @@ nav::-webkit-scrollbar-thumb {
 
 .form-btn-cancel {
   flex: 1;
-  background: #ede9e1;
+  background-color: #ede9e1;
   color: #888780;
   border: none;
   border-radius: 10px;
@@ -970,11 +948,11 @@ nav::-webkit-scrollbar-thumb {
 }
 
 .form-btn-cancel:hover {
-  background: #e4e0d7;
+  background-color: #e4e0d7;
 }
 .btn-addTask {
   flex: 1;
-  background: #1d9e75;
+  background-color: #1d9e75;
   color: #fff;
   border: none;
   border-radius: 10px;
@@ -996,7 +974,7 @@ nav::-webkit-scrollbar-thumb {
   width: 320px;
   min-width: 320px;
   border-left: 0.5px solid rgba(44, 44, 42, 0.1);
-  background: #ffffff;
+  background-color: #ffffff;
   padding: 24px;
   height: 100vh;
   display: grid;
@@ -1028,14 +1006,13 @@ nav::-webkit-scrollbar-thumb {
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  background: none;
+  background-color: none;
   border: none;
   color: #888780;
-  transition: 0.3s;
 }
 
 .task__close:hover {
-  background: #ede9e1;
+  background-color: #ede9e1;
 }
 
 .task__name {
@@ -1096,7 +1073,7 @@ nav::-webkit-scrollbar-thumb {
 }
 #notes {
   color: #888780;
-  background: #f5f2ec;
+  background-color: #f5f2ec;
   border-radius: 10px;
   padding: 12px;
   font-size: 13px;
@@ -1105,13 +1082,12 @@ nav::-webkit-scrollbar-thumb {
   outline: none;
   resize: none;
   min-height: 80px;
-  transition: background 0.15s ease;
 }
 
 .panel-delete-btn {
   width: 100%;
   color: #a32d2d;
-  background: #fcebeb;
+  background-color: #fcebeb;
   border: 0.5px solid #f7c1c1;
   border-radius: 10px;
   padding: 10px;
@@ -1130,7 +1106,7 @@ nav::-webkit-scrollbar-thumb {
   left: 50%;
   bottom: 28px;
   color: #fff;
-  background: #2c2c2a;
+  background-color: #2c2c2a;
   padding: 10px 20px;
   border-radius: 20px;
   font-size: 13px;
@@ -1138,7 +1114,7 @@ nav::-webkit-scrollbar-thumb {
   white-space: nowrap;
   opacity: 0;
   transform: translateX(-50%) translateY(20px);
-  transition: all 0.3s;
+  transition: transform 0.15s ease;
 }
 
 .notification.showNotification {
@@ -1164,7 +1140,7 @@ nav::-webkit-scrollbar-thumb {
 
 .dark .menu-btn.menu-active,
 .category-btn.category-active {
-  background: rgba(29, 158, 117, 0.12);
+  background-color: rgba(29, 158, 117, 0.12);
   color: #1d9e75;
   font-weight: 500;
   pointer-events: none;
@@ -1186,7 +1162,7 @@ nav::-webkit-scrollbar-thumb {
   background-color: var(--bg);
 }
 
-.dark body {
+.dark #wrapper {
   background-color: var(--bg);
 }
 
@@ -1199,7 +1175,7 @@ nav::-webkit-scrollbar-thumb {
   background-color: var(--bg2);
 }
 .dark .stat-card {
-  background: var(--white);
+  background-color: var(--white);
   border-color: var(--border);
 }
 
@@ -1248,18 +1224,18 @@ nav::-webkit-scrollbar-thumb {
 
 .dark .chip.selected-high {
   color: var(--red-text);
-  background: var(--red-bg);
+  background-color: var(--red-bg);
   border-color: #f09595;
 }
 .dark .chip.selected-medium {
   color: var(--amber-text);
-  background: var(--amber-bg);
+  background-color: var(--amber-bg);
   border-color: #fac775;
 }
 .dark .chip.selected-low {
   color: var(--green-text);
   border-color: var(--accent-mid);
-  background: var(--green-bg);
+  background-color: var(--green-bg);
 }
 
 .dark .task-card {
@@ -1296,7 +1272,7 @@ nav::-webkit-scrollbar-thumb {
 }
 
 .dark .task-detail-panel {
-  background: var(--white);
+  background-color: var(--white);
 }
 
 .dark .task__title,
@@ -1312,11 +1288,15 @@ nav::-webkit-scrollbar-thumb {
 }
 
 .dark #notes {
-  background: var(--bg3);
+  background-color: var(--bg3);
 }
 
 .dark .panel-delete-btn {
-  background: var(--red-bg);
+  background-color: var(--red-bg);
   color: var(--red-text);
   border: none;
+}
+
+.dark nav::-webkit-scrollbar-track {
+  background-color: #fff;
 }
