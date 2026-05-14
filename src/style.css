@@ -4,6 +4,42 @@
   box-sizing: border-box;
   font-family: "DM Sans", sans-serif;
   list-style: none;
+  outline: none;
+}
+
+/* ── DARK MODE VARIABLES ── */
+.dark {
+  --bg: #1a1916;
+  --bg2: #242320;
+  --bg3: #2e2c29;
+  --white: #242320;
+  --text: #e8e5de;
+  --text-muted: #888780;
+  --text-light: #555350;
+  --accent: #1d9e75;
+  --accent-light: rgba(29, 158, 117, 0.12);
+  --accent-mid: rgba(29, 158, 117, 0.3);
+  --accent-dark: #9fe1cb;
+  --border: rgba(255, 255, 255, 0.07);
+  --border-med: rgba(255, 255, 255, 0.11);
+  --red-bg: rgba(226, 75, 74, 0.12);
+  --red-text: #f09595;
+  --red-dot: #e24b4a;
+  --amber-bg: rgba(239, 159, 39, 0.12);
+  --amber-text: #fac775;
+  --amber-dot: #ef9f27;
+  --blue-bg: rgba(55, 138, 221, 0.12);
+  --blue-text: #7bbffa;
+  --blue-dot: #378add;
+  --green-bg: rgba(29, 158, 117, 0.12);
+  --green-text: #9fe1cb;
+  --green-dot: #1d9e75;
+}
+* {
+  transition:
+    background-color 0.25s ease,
+    border-color 0.25s ease,
+    color 0.15s ease;
 }
 
 body {
@@ -29,11 +65,19 @@ nav {
 }
 
 .logo {
+  display: flex;
+  align-items: center;
   padding: 0 10px;
 }
 
-.logo img {
-  max-width: 50%;
+.logo .fa-circle-check {
+  font-size: 2rem;
+  margin-right: 3px;
+  color: #1d9e75;
+}
+
+.logo h2 {
+  color: #1d9e75;
 }
 
 nav::-webkit-scrollbar-track {
@@ -69,12 +113,12 @@ nav::-webkit-scrollbar-thumb {
   vertical-align: middle;
   cursor: pointer;
   transition:
-    color 0.4s,
-    background 0.4s;
+    color 0.15s,
+    background-color 0.15s;
 }
 
-.menu__list li:hover,
-.categories__list li:hover {
+.menu__list .menu-btn:hover,
+.categories__list .category-btn:hover {
   color: #2c2c2a;
   background-color: #ede9e1;
 }
@@ -142,6 +186,107 @@ nav::-webkit-scrollbar-thumb {
   background-color: #7f77dd;
 }
 
+/* DARK MODE */
+.dark-toggle {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 9px 10px;
+  border-radius: 8px;
+  cursor: pointer;
+  -webkit-user-select: none;
+  user-select: none;
+  transition: background 0.15s;
+}
+
+.dark-toggle:hover {
+  background: #ede9e1;
+}
+
+.toggle-icon {
+  font-size: 16px;
+  line-height: 1;
+  display: inline-block;
+  transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.toggle-icon.anim-moon {
+  animation: moonWiggle 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+.toggle-icon.anim-sun {
+  animation: sunSpin 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+@keyframes moonWiggle {
+  0% {
+    transform: rotate(0deg) scale(1);
+  }
+  25% {
+    transform: rotate(-20deg) scale(1.2);
+  }
+  50% {
+    transform: rotate(10deg) scale(1.1);
+  }
+  75% {
+    transform: rotate(-8deg) scale(1.05);
+  }
+  100% {
+    transform: rotate(0deg) scale(1);
+  }
+}
+@keyframes sunSpin {
+  0% {
+    transform: rotate(0deg) scale(0.6);
+  }
+  60% {
+    transform: rotate(200deg) scale(1.15);
+  }
+  80% {
+    transform: rotate(170deg) scale(0.95);
+  }
+  100% {
+    transform: rotate(180deg) scale(1);
+  }
+}
+
+.dark-toggle-label {
+  font-size: 13.5px;
+  color: #888780;
+  flex: 1;
+}
+
+.toggle-track {
+  width: 36px;
+  height: 20px;
+  border-radius: 20px;
+  background: #e4e0d7;
+  border: 0.5px solid rgba(44, 44, 42, 0.16);
+  position: relative;
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+  transition: background 0.25s;
+}
+.dark .toggle-track {
+  background: var(--accent);
+}
+
+.toggle-thumb {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: #888780;
+  position: absolute;
+  left: 2px;
+  transition:
+    transform 0.25s,
+    background-color 0.25s ease;
+}
+
+.dark .toggle-thumb {
+  transform: translateX(16px);
+  background: #fff;
+}
+
 .profile {
   display: flex;
   align-items: center;
@@ -150,7 +295,7 @@ nav::-webkit-scrollbar-thumb {
   border-radius: 10px;
   border: 0.5px solid rgba(44, 44, 42, 0.1);
   cursor: pointer;
-  transition: bacground 0.15s;
+  transition: background 0.15s;
 }
 
 .user {
@@ -219,7 +364,7 @@ nav::-webkit-scrollbar-thumb {
   font-size: 14px;
 }
 .task-summary__date {
-  font-size: 14px;
+  font-size: 12px;
   color: #888780;
   background-color: #ede9e1;
   padding: 6px 10px;
@@ -296,6 +441,7 @@ nav::-webkit-scrollbar-thumb {
 /* Filter Buttons */
 .filter-buttons {
   margin-top: 3px;
+  cursor: pointer;
 }
 .filter-btn {
   font-size: 12.5px;
@@ -303,7 +449,9 @@ nav::-webkit-scrollbar-thumb {
   border: 0.5px solid rgba(44, 44, 42, 0.16);
   border-radius: 20px;
   color: #888780;
-  transition: all 0.15s;
+  transition:
+    background 0.15s,
+    border-color 0.15s;
   background: transparent;
   font-weight: 500;
   cursor: pointer;
@@ -332,7 +480,7 @@ nav::-webkit-scrollbar-thumb {
   color: #888780;
   background: transparent;
   cursor: pointer;
-  transition: box-shadow 0.15s;
+  transition: background-color 0.15s box-shadow 0.15s;
 }
 
 .quick-task__btn:hover {
@@ -438,6 +586,7 @@ nav::-webkit-scrollbar-thumb {
 
 .task-card__checkbox input {
   cursor: pointer;
+  border: none;
 }
 
 .task-card__content {
@@ -511,7 +660,7 @@ nav::-webkit-scrollbar-thumb {
 }
 
 .task-actions i {
-  font-size: 13px;
+  font-size: 14px;
   color: #888780;
   transition: color 0.3s;
   cursor: pointer;
@@ -587,7 +736,7 @@ nav::-webkit-scrollbar-thumb {
   border-radius: 14px;
   border: 0.5px solid rgba(44, 44, 42, 0.1);
   background-color: #ffffff;
-  transition: border-color 0.15s;
+  transition: background-color 0.15s border-color 0.15s;
 }
 
 .quick-task__box:focus-within {
@@ -833,7 +982,6 @@ nav::-webkit-scrollbar-thumb {
   flex-direction: column;
   gap: 24px;
   overflow-y: auto;
-  transition: 0.15s ease;
 }
 
 .task-detail-panel.show-detail-panel {
@@ -936,6 +1084,7 @@ nav::-webkit-scrollbar-thumb {
   outline: none;
   resize: none;
   min-height: 80px;
+  transition: background 0.15s ease;
 }
 
 .panel-delete-btn {
@@ -974,4 +1123,179 @@ nav::-webkit-scrollbar-thumb {
 .notification.showNotification {
   opacity: 1;
   transform: translateX(-50%) translateY(0);
+}
+
+/* ── DARK MODE OVERRIDES ── */
+.dark nav {
+  background-color: var(--white);
+}
+
+.dark .menu-btn:hover,
+.dark .category-btn:hover {
+  color: var(--text);
+  background-color: var(--bg);
+}
+
+.dark .dark-toggle.disabled {
+  color: initial !important;
+  background-color: initial !important;
+}
+
+.dark .menu-btn.menu-active,
+.category-btn.category-active {
+  background: rgba(29, 158, 117, 0.12);
+  color: #1d9e75;
+  font-weight: 500;
+  pointer-events: none;
+}
+
+.dark .profile {
+  border-color: var(--border);
+}
+
+.dark .user-avatar {
+  background-color: var(--accent-mid);
+}
+
+.dark .username {
+  color: var(--text);
+}
+
+.dark .profile:hover {
+  background-color: var(--bg);
+}
+
+.dark body {
+  background-color: var(--bg);
+}
+
+.dark .greeting {
+  color: var(--text);
+}
+
+.dark .task-summary__date {
+  color: var(--text-muted);
+  background-color: var(--bg2);
+}
+.dark .stat-card {
+  background: var(--white);
+  border-color: var(--border);
+}
+
+.dark #stat-total,
+.dark #stat-pending {
+  color: var(--text);
+}
+
+.dark .filter-btn {
+  color: var(--text-muted);
+}
+
+.dark .filter-btn:hover {
+  color: var(--text);
+  background-color: transparent;
+}
+
+.dark .filter-btn__active {
+  color: var(--text);
+  background-color: var(--bg3);
+  border-color: var(--border);
+  pointer-events: none;
+}
+
+.dark .quick-task__btn {
+  color: var(--text);
+  box-shadow: none;
+}
+
+.dark .quick-task__btn:hover {
+  background-color: var(--bg3);
+}
+
+.dark .quick-task__box {
+  background-color: var(--white);
+  border-color: var(--border);
+}
+
+.dark .quick-task__box:focus-within {
+  border-color: var(--accent);
+}
+
+.dark .add-input {
+  color: var(--text);
+}
+
+.dark .chip.selected-high {
+  color: var(--red-text);
+  background: var(--red-bg);
+  border-color: #f09595;
+}
+.dark .chip.selected-medium {
+  color: var(--amber-text);
+  background: var(--amber-bg);
+  border-color: #fac775;
+}
+.dark .chip.selected-low {
+  color: var(--green-text);
+  border-color: var(--accent-mid);
+  background: var(--green-bg);
+}
+
+.dark .task-card {
+  background-color: var(--white);
+}
+
+.dark .task-card__title {
+  color: var(--text);
+}
+
+.dark .tag-red {
+  background-color: var(--red-bg);
+  color: var(--red-text);
+}
+.dark .tag-blue {
+  background-color: var(--blue-bg);
+  color: var(--blue-text);
+}
+.dark .tag-gray {
+  background-color: var(--bg);
+  color: var(--text);
+}
+.dark .tag-green {
+  background-color: var(--green-bg);
+  color: var(--green-text);
+}
+.dark .tag-amber {
+  background-color: var(--amber-bg);
+  color: var(--amber-text);
+}
+
+.dark .task-actions i:hover {
+  color: var(--text);
+}
+
+.dark .task-detail-panel {
+  background: var(--white);
+}
+
+.dark .task__title,
+.dark .task__name {
+  color: var(--text);
+}
+
+.dark .detail-priority,
+.dark .detail-category,
+.dark .detail-due-time,
+.dark .detail-status {
+  color: var(--text);
+}
+
+.dark #notes {
+  background: var(--bg3);
+}
+
+.dark .panel-delete-btn {
+  background: var(--red-bg);
+  color: var(--red-text);
+  border: none;
 }

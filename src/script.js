@@ -51,6 +51,7 @@ const taskActionContainer = document.querySelector(".task-actions"); // Hover ac
 const quick__input = document.querySelector(".add-input"); // Text input for the quick add
 const quickTask__submit = document.querySelector(".quickTaskBtn__submit"); // Submit button for the quick add
 const taskNameInput = document.querySelector("input[name='task-name']"); // Input field selected using the name attribute "~task-name"
+const description = document.getElementById("textarea");
 
 // --- View filter bar (All / Active / Done) ---
 const filter_buttons_container = document.querySelector(".filter-buttons"); // Container for filter buttons
@@ -140,11 +141,12 @@ const hidePanel = () => panelContainer.classList.remove("show-detail-panel");
 
 // ============================================================
 // CLEAR INPUT: clearInput
-// Clears the quick add and task name inputs.
+// Clears the quick add, task name and description inputs .
 // ============================================================
 const clearInput = () => {
   quick__input.value = "";
   taskNameInput.value = "";
+  description.value = "";
 };
 
 // ============================================================
@@ -248,7 +250,7 @@ function selectedPriority(selected_chip) {
   selected_chip.addEventListener("click", (e) => {
     // Clear all active chips before applying the new selection
     chips__priority.forEach((chip) =>
-      chip.classList.remove("selected-high", "selected-med", "selected-low"),
+      chip.classList.remove("selected-high", "selected-medium", "selected-low"),
     );
 
     // Apply the selection class based on the clicked chip's priority
@@ -807,4 +809,29 @@ menuList.addEventListener("click", (e) => {
     // Toggle "is-filtered" — true = hide, false = show
     card.classList.toggle("is-filtered", !showCard);
   });
+});
+
+// ============================================================
+// Dark mode toggle
+// Toggles the document theme and updates the icon + label text.
+// ============================================================
+const darkToggle = document.querySelector(".dark-toggle"); // theme switch button
+const themeIcon = document.getElementById("themeIcon"); // current theme icon element
+const themeIconLabel = document.getElementById("themeLabel"); // text label below the icon
+const toggleTrack = document.querySelector(".toggle-track"); // visual switch track
+const toggleThumb = document.querySelector(".toggle-thumb"); // switch thumb handle
+
+darkToggle.addEventListener("click", () => {
+  const isDark = document.documentElement.classList.toggle("dark"); // toggle dark theme class
+  themeIcon.classList.remove("anim-sun", "anim-moon"); // clear any existing icon animation
+
+  if (isDark) {
+    themeIcon.textContent = "🌙"; // show moon icon for dark theme
+    themeIcon.classList.add("anim-moon"); // apply moon entry animation
+    themeIconLabel.textContent = "Dark mode"; // set label for dark theme
+  } else {
+    themeIcon.textContent = "☀️"; // show sun icon for light theme
+    themeIcon.classList.add("anim-sun"); // apply sun entry animation
+    themeIconLabel.textContent = "Light mode"; // set label for light theme
+  }
 });
