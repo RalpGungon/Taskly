@@ -441,6 +441,7 @@ nav::-webkit-scrollbar-thumb {
 /* Filter Buttons */
 .filter-buttons {
   margin-top: 3px;
+  cursor: pointer;
 }
 .filter-btn {
   font-size: 12.5px;
