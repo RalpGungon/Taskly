@@ -119,6 +119,7 @@ _Empty state banner displayed when no active tasks remain._
 - Blur-backed modal overlays
 - Empty state feedback
 - Lightweight transitions across interactive elements
+- Dark mode toggle with animated theme switcher
 - Visual priority hierarchy through color and spacing
 
 ---
@@ -204,6 +205,7 @@ Taskly is currently a frontend-focused prototype emphasizing UI/UX and client-si
 | `openTaskOverlay(overlay)`             | Opens a modal overlay                                        |
 | `closeTaskOverlay(el)`                 | Closes a modal overlay                                       |
 | `handleClickOverlay(currEl, el)`       | Closes overlay when clicking outside modal content           |
+| `darkToggle`                           | Toggles the UI between dark and light theme modes            |
 | `selectedPriority(chip)`               | Handles active priority chip selection                       |
 | `showEmptyTaskState(el, length)`       | Displays the empty state banner                              |
 | `hideEmptyTaskState(el, length)`       | Hides the empty state banner                                 |
@@ -249,7 +251,6 @@ open index.html
 ### Core Improvements
 
 - [ ] Mobile-responsive sidebar navigation
-- [ ] Dark mode toggle
 - [ ] Task search and global filtering
 - [ ] Drag-and-drop task reordering
 

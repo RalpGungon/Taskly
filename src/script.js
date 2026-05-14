@@ -141,7 +141,7 @@ const hidePanel = () => panelContainer.classList.remove("show-detail-panel");
 
 // ============================================================
 // CLEAR INPUT: clearInput
-// Clears the quick add and task name inputs.
+// Clears the quick add, task name and description inputs .
 // ============================================================
 const clearInput = () => {
   quick__input.value = "";
@@ -811,24 +811,27 @@ menuList.addEventListener("click", (e) => {
   });
 });
 
-// Dark mode
-const darkToggle = document.querySelector(".dark-toggle");
-const themeIcon = document.getElementById("themeIcon");
-const themeIconLabel = document.getElementById("themeLabel");
-const toggleTrack = document.querySelector(".toggle-track");
-const toggleThumb = document.querySelector(".toggle-thumb");
+// ============================================================
+// Dark mode toggle
+// Toggles the document theme and updates the icon + label text.
+// ============================================================
+const darkToggle = document.querySelector(".dark-toggle"); // theme switch button
+const themeIcon = document.getElementById("themeIcon"); // current theme icon element
+const themeIconLabel = document.getElementById("themeLabel"); // text label below the icon
+const toggleTrack = document.querySelector(".toggle-track"); // visual switch track
+const toggleThumb = document.querySelector(".toggle-thumb"); // switch thumb handle
 
 darkToggle.addEventListener("click", () => {
-  const isDark = document.documentElement.classList.toggle("dark");
-  themeIcon.classList.remove("anim-sun", "anim-moon");
+  const isDark = document.documentElement.classList.toggle("dark"); // toggle dark theme class
+  themeIcon.classList.remove("anim-sun", "anim-moon"); // clear any existing icon animation
 
   if (isDark) {
-    themeIcon.textContent = "🌙";
-    themeIcon.classList.add("anim-moon");
-    themeIconLabel.textContent = "Dark mode";
+    themeIcon.textContent = "🌙"; // show moon icon for dark theme
+    themeIcon.classList.add("anim-moon"); // apply moon entry animation
+    themeIconLabel.textContent = "Dark mode"; // set label for dark theme
   } else {
-    themeIcon.textContent = "☀️";
-    themeIcon.classList.add("anim-sun");
-    themeIconLabel.textContent = "Light mode";
+    themeIcon.textContent = "☀️"; // show sun icon for light theme
+    themeIcon.classList.add("anim-sun"); // apply sun entry animation
+    themeIconLabel.textContent = "Light mode"; // set label for light theme
   }
 });
