@@ -835,3 +835,17 @@ darkToggle.addEventListener("click", () => {
     themeIconLabel.textContent = "Light mode"; // set label for light theme
   }
 });
+
+const btnMenu = document.querySelector(".fa-bars");
+const sidebarEl = document.querySelector(".sidebar");
+const overlay = document.querySelector(".sidebar-overlay");
+
+btnMenu.addEventListener("click", function (e) {
+  sidebarEl.classList.add("sidebar-active");
+  overlay.classList.add("sidebar-active");
+});
+
+overlay.addEventListener("click", function (e) {
+  sidebarEl.classList.remove("sidebar-active");
+  overlay.classList.remove("sidebar-active");
+});
