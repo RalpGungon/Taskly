@@ -27,11 +27,11 @@
 
     <div id="wrapper">
         <!-- SIDEBAR -->
-        <nav>
+        <nav class="sidebar">
             <!-- NAV LOGO -->
             <div class="logo">
                 <i class="fa-solid fa-circle-check"></i>
-                <h2> Taskly</h2>
+                <h2>Taskly</h2>
             </div>
 
             <!-- MENU LIST -->
@@ -91,7 +91,18 @@
                 </div>
             </div>
         </nav>
+        <div class="sidebar-overlay"></div>
 
+
+        <nav class="navTablet">
+            <div class="navTabletLogo">
+                <i class="fa-solid fa-circle-check"></i>
+                <h2>Taskly</h2>
+            </div>
+            <div class="navTablet-right">
+                <i class="fa-solid fa-bars"></i>
+            </div>
+        </nav>
 
         <!-- MAIN CONTENT -->
         <div id="main-content">
@@ -288,7 +299,7 @@
                     <div class="task-section__head">
                         <span class="task-section__title">Completed</span>
                         <div class="task-section__line"></div>
-                        <span class="task-section__count completed-section_count" id="active-count">s</span>
+                        <span class="task-section__count completed-section_count" id="active-count"></span>
                     </div>
                     <div class="task-list" id="doneList">
 
