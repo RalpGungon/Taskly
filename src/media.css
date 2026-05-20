@@ -36,6 +36,15 @@
   }
 }
 
+@media (max-width: 721px) {
+  .quick-task__overlay {
+    padding: 0 0.3rem;
+  }
+  .quick-task__wrap {
+    width: 100%;
+  }
+}
+
 @media (max-width: 651px) {
   .navTablet {
     padding: 0 1.5rem 0 0.5rem;
@@ -49,5 +58,30 @@
 @media (max-width: 575px) {
   .stats-row {
     grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 461px) {
+  .task-toolbar {
+    flex-direction: column-reverse;
+    gap: 18px 0;
+  }
+  .filter-buttons {
+    align-self: flex-start;
+  }
+  .quick-task__btn {
+    font-size: 14px;
+    padding: 10px 12px;
+    width: 100%;
+  }
+
+  .quick-task__box {
+    padding: 12px 20px;
+  }
+
+  .custom-icon {
+    width: 30px;
+    height: 30px;
+    font-size: 22px;
   }
 }
