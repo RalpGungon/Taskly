@@ -845,6 +845,7 @@ nav::-webkit-scrollbar-thumb {
   background-color: none;
   border: none;
   outline: none;
+  width: 100%;
 }
 
 .chips-row {
