@@ -63,7 +63,7 @@ body {
   height: 100vh;
   outline: none;
   overflow-y: auto;
-  z-index: 99;
+  z-index: 98;
   transition:
     transform 0.16s ease,
     opacity 0.16s ease;
@@ -430,6 +430,9 @@ nav::-webkit-scrollbar-thumb {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  margin-top: 3px;
+  flex-wrap: wrap;
+  gap: 20px 0;
 }
 .task-summary__text {
   color: #888780;
