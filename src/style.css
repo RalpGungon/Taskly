@@ -1221,7 +1221,7 @@ nav::-webkit-scrollbar-thumb {
 }
 
 .dark .menu-btn.menu-active,
-.category-btn.category-active {
+.dark .category-btn.category-active {
   background-color: rgba(29, 158, 117, 0.12);
   color: #1d9e75;
   font-weight: 500;
