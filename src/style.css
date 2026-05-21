@@ -44,13 +44,13 @@
 
 body {
   background-color: #f5f2ec;
-  overflow: hidden;
+  overflow-x: hidden;
 }
 
 #wrapper {
   display: grid;
   grid-template-columns: 250px 1fr;
-  overflow: hidden;
+  /* overflow: hidden; */
 }
 
 /* NAV STYLES */
@@ -63,7 +63,7 @@ body {
   height: 100vh;
   outline: none;
   overflow-y: auto;
-  z-index: 98;
+  z-index: 99;
   transition:
     transform 0.16s ease,
     opacity 0.16s ease;
@@ -367,6 +367,7 @@ nav::-webkit-scrollbar-thumb {
   padding: 0 1.5rem 0 2.5rem;
   background-color: #fff;
   height: 56px;
+  width: 100%;
   flex-shrink: 0;
 }
 .navTabletLogo {
@@ -1047,12 +1048,12 @@ nav::-webkit-scrollbar-thumb {
 }
 
 .task-detail-panel {
-  position: absolute;
+  position: fixed;
   top: 0;
   right: -100%;
   opacity: 0.5;
-  width: 320px;
-  min-width: 320px;
+  width: 100%;
+  max-width: 320px;
   border-left: 0.5px solid rgba(44, 44, 42, 0.1);
   background-color: #ffffff;
   padding: 24px;

@@ -59,6 +59,17 @@
   .stats-row {
     grid-template-columns: 1fr;
   }
+  .quick-task__box {
+    flex-wrap: wrap;
+  }
+
+  .chips-row {
+    width: 100%;
+  }
+
+  .quickTaskBtn__submit {
+    width: 100%;
+  }
 }
 
 @media (max-width: 461px) {
@@ -83,5 +94,15 @@
     width: 30px;
     height: 30px;
     font-size: 22px;
+  }
+
+  .task-detail-panel {
+    max-width: 100%;
+    width: 100%;
+    right: -100%;
+  }
+
+  .task-detail-panel.show-detail-panel {
+    right: 0;
   }
 }
