@@ -73,6 +73,10 @@
 }
 
 @media (max-width: 461px) {
+  .sidebar {
+    height: fit-content;
+  }
+
   .task-toolbar {
     flex-direction: column-reverse;
     gap: 18px 0;
