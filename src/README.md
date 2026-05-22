@@ -28,8 +28,7 @@ _Slide-in task detail panel with editable notes and task metadata._
 
 _Lightweight overlay for rapid task creation with priority selection._
 
-<!-- Add screenshot here -->
-<!-- ![Quick Add Overlay](./screenshots/quick-add.png) -->
+ ![Quick Add Overlay](https://github.com/RalpGungon/Taskly/blob/cf9a0661cb1288fabe5c77fde49ab2006aae404f/src/images/screenshots/quickAddOverlay.png)
 
 ### Empty State
 
