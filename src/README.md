@@ -57,6 +57,7 @@ _Empty state banner displayed when no active tasks remain._
 - **Checkbox toggle** to move tasks between Active and Completed sections
 - **Hover actions** for viewing task details or deleting tasks
 - **Empty state handling** when no active tasks remain
+- **Mobile-responsive sidebar navigation** for smooth use on smaller screens
 
 ### Filtering
 
@@ -160,8 +161,11 @@ _Empty state banner displayed when no active tasks remain._
 ```text
 src/
 ├── index.html
+├── media.css
+├── README.md
 ├── script.js
-└── README.md
+├── style.css
+└── images/
 ```
 
 The app is built using simple separated frontend files — no frameworks, build tools, or package managers required.
@@ -250,7 +254,6 @@ open index.html
 
 ### Core Improvements
 
-- [ ] Mobile-responsive sidebar navigation
 - [ ] Task search and global filtering
 - [ ] Drag-and-drop task reordering
 
