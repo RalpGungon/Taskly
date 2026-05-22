@@ -327,10 +327,12 @@ const createTaskCard = function () {
     priority === "high" ? "high" : priority === "medium" ? "med" : "low";
 
   // Get the current time for the due time display
-  const time = today.toLocaleTimeString("en-US", {
-    hour: "numeric",
-    minute: "numeric",
-  });
+  // const time = today.toLocaleTimeString("en-US", {
+  //   hour: "numeric",
+  //   minute: "numeric",
+  // });
+
+  const defaultDue = "Today";
 
   // Create the new task card HTML element
   const task = document.createElement("div");
@@ -347,7 +349,7 @@ const createTaskCard = function () {
             <span class="tag tag-green category">Personal</span>
             <span class="task-card__time">
             <i class="fa-regular fa-clock"></i>
-              ${time}</span>
+              ${defaultDue}</span>
             </div>
      </div>
     <div class="task-actions">
