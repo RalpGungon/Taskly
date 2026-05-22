@@ -15,30 +15,27 @@ Open `index.html` directly in any modern browser — no build step, no dependenc
 ### Dashboard
 
 _Main app interface featuring sidebar navigation, stat cards, filters, and task lists._
+ ![Dashboard](https://github.com/RalpGungon/Taskly/blob/344a97a2003e76ca7882f03464adec74a7b6bc0b/src/images/screenshots/dashboard.png) 
 
-<!-- Add screenshot here -->
-<!-- ![Dashboard](./screenshots/dashboard.png) -->
 
 ### Task Detail Panel
 
 _Slide-in task detail panel with editable notes and task metadata._
 
-<!-- Add screenshot here -->
-<!-- ![Task Detail Panel](./screenshots/task-detail.png) -->
+![Task Detail Panel](https://github.com/RalpGungon/Taskly/blob/1c7c6ec01cb91793de541f4ba3ba5631700a9bfe/src/images/screenshots/taskdetailpanel.png) 
 
 ### Quick Add Overlay
 
 _Lightweight overlay for rapid task creation with priority selection._
 
-<!-- Add screenshot here -->
-<!-- ![Quick Add Overlay](./screenshots/quick-add.png) -->
+ ![Quick Add Overlay](https://github.com/RalpGungon/Taskly/blob/cf9a0661cb1288fabe5c77fde49ab2006aae404f/src/images/screenshots/quickAddOverlay.png)
 
 ### Empty State
 
 _Empty state banner displayed when no active tasks remain._
 
-<!-- Add screenshot here -->
-<!-- ![Empty State](./screenshots/empty-state.png) -->
+
+![Empty State](https://github.com/RalpGungon/Taskly/blob/619a5e4eda249d038869a6d32e3f9b33f1396056/src/images/screenshots/emptystate.png) 
 
 ---
 
