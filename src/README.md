@@ -21,6 +21,7 @@ _Main app interface featuring sidebar navigation, stat cards, filters, and task 
 ### Task Detail Panel
 
 _Slide-in task detail panel with editable notes and task metadata._
+
 ![Task Detail Panel](https://github.com/RalpGungon/Taskly/blob/1c7c6ec01cb91793de541f4ba3ba5631700a9bfe/src/images/screenshots/taskdetailpanel.png) 
 
 ### Quick Add Overlay
