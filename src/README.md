@@ -34,8 +34,8 @@ _Lightweight overlay for rapid task creation with priority selection._
 
 _Empty state banner displayed when no active tasks remain._
 
-<!-- Add screenshot here -->
-<!-- ![Empty State](./screenshots/empty-state.png) -->
+
+![Empty State](https://github.com/RalpGungon/Taskly/blob/619a5e4eda249d038869a6d32e3f9b33f1396056/src/images/screenshots/emptystate.png) 
 
 ---
 
