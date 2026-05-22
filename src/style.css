@@ -63,7 +63,6 @@ body {
   height: 100vh;
   outline: none;
   overflow-y: auto;
-  z-index: 99;
   transition:
     transform 0.16s ease,
     opacity 0.16s ease;
