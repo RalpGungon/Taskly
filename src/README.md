@@ -17,7 +17,8 @@ Open `index.html` directly in any modern browser — no build step, no dependenc
 _Main app interface featuring sidebar navigation, stat cards, filters, and task lists._
 
 <!-- Add screenshot here -->
-<!-- ![Dashboard](./screenshots/dashboard.png) -->
+ ![Dashboard]([./screenshots/dashboard.png](https://github.com/RalpGungon/Taskly/blob/344a97a2003e76ca7882f03464adec74a7b6bc0b/src/images/screenshots/dashboard.png)) 
+
 
 ### Task Detail Panel
 
