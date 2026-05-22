@@ -1377,3 +1377,9 @@ nav::-webkit-scrollbar-thumb {
   border-color: var(--accent-mid);
   background-color: var(--green-bg);
 }
+
+.dark .notification {
+  color: var(--text);
+  background-color: var(--bg3);
+  border: 0.5px solid var(--border);
+}
