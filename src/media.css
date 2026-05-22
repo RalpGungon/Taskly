@@ -106,4 +106,9 @@
   .task-detail-panel.show-detail-panel {
     right: 0;
   }
+
+  #main-content {
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+  }
 }
