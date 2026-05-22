@@ -351,7 +351,6 @@ const createTaskCard = function () {
             </div>
      </div>
     <div class="task-actions">
-      <i class="fa-solid fa-arrow-right"></i>
       <i class="fa-solid fa-trash"></i>
     </div>
   `;
