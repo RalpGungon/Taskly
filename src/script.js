@@ -279,6 +279,19 @@ const hideEmptyTaskState = function (emptyStateEl, taskListLength) {
   }
 };
 
+// Local Storage
+
+const getUsers = function () {
+  return JSON.parse(localStorage.getItem("user_data")) || [];
+};
+
+const users = getUsers();
+console.log(users);
+
+function saveUsers(users) {
+  localStorage.setItem("user_data", JSON.stringify(users));
+}
+
 // ============================================================
 // QUICK ADD: createTaskCard
 // Creates a task card from the quick add input bar.
@@ -852,9 +865,9 @@ overlay.addEventListener("click", function (e) {
 });
 
 const authTabs = document.querySelector(".auth-tabs");
-const forms = document.querySelectorAll(".form-inner form");
+const handleFormTabs = function (e) {
+  const forms = document.querySelectorAll(".form-inner form");
 
-authTabs.addEventListener("click", function (e) {
   const authBtn = e.target.closest(".auth-btn");
 
   if (!authBtn) return;
@@ -875,12 +888,33 @@ authTabs.addEventListener("click", function (e) {
       form.classList.remove("showForm");
     }
   });
-});
+};
 
-// authButtons.forEach((btn) => {
-//   btn.addEventListener("click", function () {
-//     authButtons.forEach((b) => b.classList.remove("active"));
+const signUpSubmit = document.querySelector(".signUp-btn-submit");
 
-//     btn.classList.add("active");
-//   });
-// });
+const registrationForm = document.querySelector(".signUp-form");
+const handleSignUp = function (e) {
+  e.preventDefault();
+  const data = new FormData(registrationForm);
+
+  const data_values = {
+    fullName: data.get("fullname").trim(),
+    email: data.get("email").trim(),
+    password: data.get("password").trim(),
+  };
+
+  const { fullName, email, password } = data_values;
+
+  if (fullName && email && password) {
+    users.push({ fullName, email, password });
+    saveUsers(users);
+
+    document
+      .querySelectorAll(".signUp-group input")
+      .forEach((input) => (input.value = ""));
+  }
+};
+
+registrationForm.addEventListener("submit", handleSignUp);
+
+authTabs.addEventListener("click", handleFormTabs);
