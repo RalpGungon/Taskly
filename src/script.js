@@ -850,3 +850,37 @@ overlay.addEventListener("click", function (e) {
   sidebarEl.classList.remove("sidebar-active");
   overlay.classList.remove("sidebar-active");
 });
+
+const authTabs = document.querySelector(".auth-tabs");
+const forms = document.querySelectorAll(".form-inner form");
+
+authTabs.addEventListener("click", function (e) {
+  const authBtn = e.target.closest(".auth-btn");
+
+  if (!authBtn) return;
+
+  const authBtnData = authBtn.dataset.authBtn;
+
+  document
+    .querySelectorAll(".auth-btn")
+    .forEach((btn) => btn.classList.remove("active"));
+
+  authBtn.classList.add("active");
+
+  forms.forEach((form) => {
+    const formData = form.dataset.form;
+    if (formData === authBtnData) {
+      form.classList.add("showForm");
+    } else {
+      form.classList.remove("showForm");
+    }
+  });
+});
+
+// authButtons.forEach((btn) => {
+//   btn.addEventListener("click", function () {
+//     authButtons.forEach((b) => b.classList.remove("active"));
+
+//     btn.classList.add("active");
+//   });
+// });
