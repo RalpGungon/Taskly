@@ -509,7 +509,56 @@
         <button type="button" class="panel-delete-btn">Delete task</button>
     </div>
 
+
+    <!-- Notification -->
     <div class="notification"></div>
+
+    <!-- User form -->
+    <div class="form-container">
+        <div class="form-inner">
+            <div class="form-header">
+                <i class="fa-solid fa-circle-check"></i>
+                <h2>Taskly</h2>
+            </div>
+            <div class="auth-tabs">
+                <button type="button" class="signIn-btn auth-btn active" data-auth-btn="signin">Sign in</button>
+                <button type="button" class="createAcc-btn auth-btn" data-auth-btn="signup">Create account</button>
+            </div>
+
+            <!-- LOG IN FORM -->
+            <form class="signIn-form showForm" data-form="signin">
+                <div class="signIn-group">
+                    <label>Email address</label>
+                    <input type="email" placeholder="you@example.com" required>
+                </div>
+                <div class="signIn-group">
+                    <label>Password</label>
+                    <input type="password" placeholder="Enter your password" required>
+                </div>
+                <button type="submit" class="signIn-btn-submit">Sign in to Taskly</button>
+            </form>
+
+
+            <!-- SIGN UP FORM -->
+            <form class="signUp-form" data-form="signup">
+                <div class="signUp-group">
+                    <label>Full name</label>
+                    <input type="text" placeholder="John Doe" required>
+                </div>
+                <div class="signUp-group">
+                    <label>Email address</label>
+                    <input type="email" placeholder="you@example.com" required>
+                </div>
+                <div class="signUp-group">
+                    <label>Password</label>
+                    <input type="password" placeholder="Enter your password" required>
+                </div>
+                <button type="submit" class="signUp-btn-submit">Create my account</button>
+            </form>
+        </div>
+    </div>
+
+
 
     <script src="./script.js" defer></script>
 </body>
