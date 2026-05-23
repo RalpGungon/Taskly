@@ -1241,6 +1241,7 @@ nav::-webkit-scrollbar-thumb {
 .signIn-form,
 .signUp-form {
   display: none;
+  animation: fadeUp 0.4s ease;
 }
 
 .showForm {
