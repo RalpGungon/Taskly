@@ -341,13 +341,8 @@ nav::-webkit-scrollbar-thumb {
   font-weight: 500;
 }
 
-.free-plan__text {
-  font-size: 11px;
-  color: #888780;
-}
-
 .logout-icon i {
-  font-size: 12px;
+  font-size: 14px;
   color: #9c9b99;
 }
 

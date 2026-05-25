@@ -286,7 +286,6 @@ const getUsers = function () {
 };
 
 const users = getUsers();
-console.log(users);
 
 function saveUsers(users) {
   localStorage.setItem("user_data", JSON.stringify(users));
@@ -927,11 +926,18 @@ const handleSignUp = function (e) {
   }
 };
 
+const formContainer = document.querySelector(".form-container");
+const spinner = document.querySelector(".spinner-overlay");
+
+const showSpinner = function () {
+  spinner.classList.add("spinner-active");
+
+  setTimeout(() => spinner.classList.remove("spinner-active"), 3500);
+};
+
 const handleSignIn = function (e) {
   e.preventDefault();
 
-  const formContainer = document.querySelector(".form-container");
-  const spinner = document.querySelector(".spinner-overlay");
   const emailInput = document.querySelector(
     '.signIn-group input[type="email"]',
   );
@@ -946,11 +952,10 @@ const handleSignIn = function (e) {
         user.password === passwordInput.value,
     )
   ) {
-    spinner.classList.add("spinner-active");
-
-    setTimeout(() => spinner.classList.remove("spinner-active"), 3000);
-
+    showSpinner();
     formContainer.classList.add("not-active");
+
+    emailInput.value = passwordInput.value = "";
   } else {
     alert("Invalid email or password. Please try again.");
   }
@@ -959,3 +964,13 @@ const handleSignIn = function (e) {
 registrationForm.addEventListener("submit", handleSignUp);
 signInForm.addEventListener("submit", handleSignIn);
 authTabs.addEventListener("click", handleFormTabs);
+
+const logout = document.querySelector(".logout-icon");
+const handleLogOut = function (e) {
+  overlay.classList.remove("sidebar-active");
+  sidebarEl.classList.remove("sidebar-active");
+  formContainer.classList.remove("not-active");
+  showSpinner();
+};
+
+logout.addEventListener("click", handleLogOut);
