@@ -130,7 +130,7 @@ const showNotification = function (message) {
   notification.classList.add("showNotification");
 
   // Remove the class after 3 seconds to hide the toast
-  setTimeout(() => notification.classList.remove("showNotification"), 3000);
+  setTimeout(() => notification.classList.remove("showNotification"), 6000);
 };
 
 // ============================================================
@@ -850,6 +850,7 @@ darkToggle.addEventListener("click", () => {
   }
 });
 
+// Tablet Mobile Menu
 const btnMenu = document.querySelector(".fa-bars");
 const sidebarEl = document.querySelector(".sidebar");
 const overlay = document.querySelector(".sidebar-overlay");
@@ -864,6 +865,7 @@ overlay.addEventListener("click", function (e) {
   overlay.classList.remove("sidebar-active");
 });
 
+// Form
 const authTabs = document.querySelector(".auth-tabs");
 const handleFormTabs = function (e) {
   const forms = document.querySelectorAll(".form-inner form");
@@ -890,9 +892,9 @@ const handleFormTabs = function (e) {
   });
 };
 
-const signUpSubmit = document.querySelector(".signUp-btn-submit");
-
 const registrationForm = document.querySelector(".signUp-form");
+const signInForm = document.querySelector(".signIn-form");
+
 const handleSignUp = function (e) {
   e.preventDefault();
   const data = new FormData(registrationForm);
@@ -905,6 +907,13 @@ const handleSignUp = function (e) {
 
   const { fullName, email, password } = data_values;
 
+  if (
+    users.some((user) => user.fullName === fullName || user.email === email)
+  ) {
+    alert("Username or Email already exists!");
+    return;
+  }
+
   if (fullName && email && password) {
     users.push({ fullName, email, password });
     saveUsers(users);
@@ -912,9 +921,41 @@ const handleSignUp = function (e) {
     document
       .querySelectorAll(".signUp-group input")
       .forEach((input) => (input.value = ""));
+
+    alert("Account Created Successfully");
+    return;
+  }
+};
+
+const handleSignIn = function (e) {
+  e.preventDefault();
+
+  const formContainer = document.querySelector(".form-container");
+  const spinner = document.querySelector(".spinner-overlay");
+  const emailInput = document.querySelector(
+    '.signIn-group input[type="email"]',
+  );
+  const passwordInput = document.querySelector(
+    '.signIn-group input[type="password"]',
+  );
+
+  if (
+    users.find(
+      (user) =>
+        user.email === emailInput.value &&
+        user.password === passwordInput.value,
+    )
+  ) {
+    spinner.classList.add("spinner-active");
+
+    setTimeout(() => spinner.classList.remove("spinner-active"), 3000);
+
+    formContainer.classList.add("not-active");
+  } else {
+    alert("Invalid email or password. Please try again.");
   }
 };
 
 registrationForm.addEventListener("submit", handleSignUp);
-
+signInForm.addEventListener("submit", handleSignIn);
 authTabs.addEventListener("click", handleFormTabs);
