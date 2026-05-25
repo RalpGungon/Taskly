@@ -154,7 +154,7 @@ const clearInput = () => {
 // Displays a time-based greeting in the header.
 // Based on the hour: morning (< 12), afternoon (12–17), evening (>= 18).
 // ============================================================
-const displayGreet = function (today) {
+const displayGreet = function (today, greetingName) {
   const hour = today.getHours();
   const greetingMessage =
     hour >= 18
@@ -164,7 +164,7 @@ const displayGreet = function (today) {
         : "Good morning";
 
   // Inject the greeting and name into the DOM
-  displayGreeting.innerHTML = `${greetingMessage}, <em class="greeting__name">Ralp.</em>`;
+  displayGreeting.innerHTML = `${greetingMessage}, <em class="greeting__name">${greetingName || ""}.</em>`;
 };
 displayGreet(today);
 
@@ -280,7 +280,6 @@ const hideEmptyTaskState = function (emptyStateEl, taskListLength) {
 };
 
 // Local Storage
-
 const getUsers = function () {
   return JSON.parse(localStorage.getItem("user_data")) || [];
 };
@@ -935,6 +934,17 @@ const showSpinner = function () {
   setTimeout(() => spinner.classList.remove("spinner-active"), 3500);
 };
 
+const firstNameUpper = (name) => {
+  return name
+    .toLowerCase()
+    .split(" ")
+    .slice(0, 2)
+    .map((n) => n[0].toUpperCase() + n.slice(1))
+    .join(" ");
+};
+
+console.log(firstNameUpper("Ralp lauren gungon"));
+
 const handleSignIn = function (e) {
   e.preventDefault();
 
@@ -945,17 +955,20 @@ const handleSignIn = function (e) {
     '.signIn-group input[type="password"]',
   );
 
-  if (
-    users.find(
-      (user) =>
-        user.email === emailInput.value &&
-        user.password === passwordInput.value,
-    )
-  ) {
+  const username = document.querySelector(".username");
+
+  const user = users.find(
+    (user) =>
+      user.email === emailInput.value && user.password === passwordInput.value,
+  );
+
+  if (user) {
     showSpinner();
     formContainer.classList.add("not-active");
-
     emailInput.value = passwordInput.value = "";
+    username.textContent = firstNameUpper(user.fullName);
+
+    displayGreet(today, firstNameUpper(user.fullName));
   } else {
     alert("Invalid email or password. Please try again.");
   }
