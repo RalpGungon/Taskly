@@ -73,6 +73,12 @@ const panelDeleteBtn = document.querySelector(".panel-delete-btn"); // Delete bu
 const emptyStateEl = document.querySelector(".emptyTask"); // "No tasks" empty state banner
 const categoriesContainter = document.querySelector(".categories__list"); // Category filter buttons container
 
+// --- Login Inputs ---
+const emailInput = document.querySelector('.signIn-group input[type="email"]');
+const passwordInput = document.querySelector(
+  '.signIn-group input[type="password"]',
+);
+
 // ============================================================
 // APP STATE
 // ============================================================
@@ -281,14 +287,139 @@ const hideEmptyTaskState = function (emptyStateEl, taskListLength) {
 
 // Local Storage
 const getUsers = function () {
-  return JSON.parse(localStorage.getItem("user_data")) || [];
-};
+  const raw = localStorage.getItem("user_data");
 
-const users = getUsers();
+  if (!raw) {
+    return [];
+  }
+
+  try {
+    const parsed = JSON.parse(raw);
+
+    if (Array.isArray(parsed)) {
+      return parsed;
+    }
+
+    if (parsed && typeof parsed === "object") {
+      const normalized = [parsed];
+      saveUsers(normalized);
+      return normalized;
+    }
+  } catch (error) {
+    console.warn("Failed to parse user_data from localStorage:", error);
+  }
+
+  return [];
+};
 
 function saveUsers(users) {
   localStorage.setItem("user_data", JSON.stringify(users));
 }
+
+let currentUser = null;
+
+// ============================================================
+// TASK CARD RENDERER: renderTaskCard
+// Shared helper that creates and renders a task card to the DOM.
+// Used by both quick add and detailed form.
+// ============================================================
+const renderTaskCard = function (taskData, isDetailedTask = false) {
+  const { taskName, priority, description, category, dueTime, isCompleted } =
+    taskData;
+
+  // Determine colors and classes
+  const tagColor =
+    priority === "High" || priority === "high"
+      ? "red"
+      : priority === "Medium" || priority === "medium"
+        ? "amber"
+        : "green";
+
+  const borderLeftColor =
+    priority === "High" || priority === "high"
+      ? "high"
+      : priority === "Medium" || priority === "medium"
+        ? "med"
+        : "low";
+
+  const categoryColor =
+    category === "Work"
+      ? "blue"
+      : category === "Personal"
+        ? "green"
+        : category === "Health"
+          ? "amber"
+          : "gray";
+
+  // Create the task card element
+  const task = document.createElement("div");
+  task.className = `task-card ${borderLeftColor}-priority`;
+
+  let dueDateDisplay = dueTime ? formatTime(dueTime) : "Today";
+
+  const descriptionHTML = description
+    ? `<p class="task-card__description">${description}</p>`
+    : "";
+  const arrowIcon = isDetailedTask
+    ? `<i class="fa-solid fa-arrow-right"></i>`
+    : "";
+
+  task.innerHTML = `
+    <div class="task-card__checkbox">
+      <input type="checkbox" aria-label="Mark task as complete" ${isCompleted ? "checked" : ""}>
+    </div>
+    <div class="task-card__content">
+      <h3 class="task-card__title">${taskName}</h3>
+      ${descriptionHTML}
+      <div class="task-card__meta">
+        <span class="tag tag-${tagColor} priority">${priority}</span>
+        <span class="tag tag-${categoryColor} category">${category}</span>
+        <span class="task-card__time">
+          <i class="fa-regular fa-clock"></i>
+          ${dueDateDisplay}
+        </span>
+      </div>
+    </div>
+    <div class="task-actions">
+      ${arrowIcon}
+      <i class="fa-solid fa-trash"></i>
+    </div>
+  `;
+
+  // Add to appropriate list based on completion status
+  if (isCompleted) {
+    doneList.prepend(task);
+  } else {
+    activeList.prepend(task);
+  }
+};
+
+// ============================================================
+// LOAD USER TASKS: loadUserTasks
+// Loads all tasks for the current user from localStorage
+// and renders them in the active/done lists.
+// Called after successful sign-in.
+// ============================================================
+const loadUserTasks = function () {
+  if (!currentUser) return;
+
+  // Clear existing task cards
+  activeList.innerHTML = "";
+  doneList.innerHTML = "";
+
+  const users = getUsers();
+  const user = users.find((u) => u.email === currentUser.email);
+
+  if (!user || !user.allTasks) return;
+
+  // Render all tasks from localStorage
+  user.allTasks.forEach((taskData) => {
+    renderTaskCard(taskData, taskData.isDetailed);
+  });
+
+  updateAllStatUI();
+  hideEmptyTaskState(emptyStateEl, activeList.children.length);
+};
 
 // ============================================================
 // QUICK ADD: createTaskCard
@@ -297,6 +428,7 @@ function saveUsers(users) {
 // ============================================================
 const createTaskCard = function () {
   let quickInputVal = quick__input.value;
+  const users = getUsers();
 
   // Validation — input cannot be empty
   if (!quickInputVal) {
@@ -329,47 +461,40 @@ const createTaskCard = function () {
     chipText = selectedChip.textContent.trim(); // The text shown on the tag (e.g. "High")
   }
 
-  // Color for the priority tag
-  const tagColor =
-    priority === "high" ? "red" : priority === "medium" ? "amber" : "green";
+  const user = users.find((u) => currentUser && u.email === currentUser.email);
 
-  // CSS class for the task card's left border color
-  const borderLeftColor =
-    priority === "high" ? "high" : priority === "medium" ? "med" : "low";
+  if (user) {
+    // Initialize allTasks array if it doesn't exist
+    user.allTasks = user.allTasks || [];
 
-  // Get the current time for the due time display
-  // const time = today.toLocaleTimeString("en-US", {
-  //   hour: "numeric",
-  //   minute: "numeric",
-  // });
+    // Create task object
+    const taskObj = {
+      taskName: quickInputVal,
+      priority: chipText,
+      description: "",
+      category: "Personal",
+      dueTime: null,
+      isCompleted: false,
+      isDetailed: false,
+      createdAt: new Date().toISOString(),
+    };
 
-  const defaultDue = "Today";
+    // Save to user's task list
+    user.allTasks.push(taskObj);
+    saveUsers(users);
+    currentUser = user; // Update current user in memory
+  }
 
-  // Create the new task card HTML element
-  const task = document.createElement("div");
-  task.className = `task-card ${borderLeftColor}-priority`;
-
-  task.innerHTML = `
-    <div class="task-card__checkbox">
-            <input type="checkbox" aria-label="Mark task as complete">
-    </div>
-    <div class="task-card__content">
-        <h3 class="task-card__title">${quickInputVal}</h3>
-           <div class="task-card__meta">
-            <span class="tag tag-${tagColor} priority">${chipText}</span>
-            <span class="tag tag-green category">Personal</span>
-            <span class="task-card__time">
-            <i class="fa-regular fa-clock"></i>
-              ${defaultDue}</span>
-            </div>
-     </div>
-    <div class="task-actions">
-      <i class="fa-solid fa-trash"></i>
-    </div>
-  `;
-
-  // Prepend to the active list so it appears at the top
-  activeList.prepend(task);
+  // Render the task card
+  renderTaskCard({
+    taskName: quickInputVal,
+    priority: chipText,
+    description: "",
+    category: "Personal",
+    dueTime: null,
+    isCompleted: false,
+    isDetailed: false,
+  });
 
   // Update all stat UI
   updateAllStatUI();
@@ -419,51 +544,44 @@ form.addEventListener("submit", function (e) {
 
   const { taskName, description, priority, category, dueTime } = values;
 
-  // Determine the CSS class for the left border based on priority
-  const borderPriority =
-    priority === "High" ? "high" : priority === "Medium" ? "med" : "low";
+  // Save to localStorage if user is signed in
+  if (currentUser) {
+    const users = getUsers();
+    const user = users.find((u) => u.email === currentUser.email);
 
-  // Determine the color of the priority tag
-  const priorityColor =
-    priority === "High" ? "red" : priority === "Medium" ? "amber" : "green";
+    if (user) {
+      user.allTasks = user.allTasks || [];
 
-  // Determine the color of the category tag
-  const categoryColor =
-    category === "Work"
-      ? "blue"
-      : category === "Personal"
-        ? "green"
-        : category === "Health"
-          ? "amber"
-          : "gray"; // Default: Learning
+      const taskObj = {
+        taskName,
+        description,
+        priority,
+        category,
+        dueTime,
+        isCompleted: false,
+        isDetailed: true,
+        createdAt: new Date().toISOString(),
+      };
 
-  // Create the new task card element
-  const detailedTask = document.createElement("div");
-  detailedTask.className = `task-card ${borderPriority}-priority`;
+      user.allTasks.push(taskObj);
+      saveUsers(users);
+      currentUser = user; // Update current user in memory
+    }
+  }
 
-  detailedTask.innerHTML = `
-    <div class="task-card__checkbox">
-      <input type="checkbox" aria-label="Mark task as complete">
-    </div>
-      <div class="task-card__content">
-          <h3 class="task-card__title">${taskName}</h3>
-          <p class="task-card__description">${description}</p>
-            <div class="task-card__meta">
-              <span class="tag tag-${priorityColor} priority">${priority}</span>
-              <span class="tag tag-${categoryColor} category">${category}</span>
-              <span class="task-card__time">
-              <i class="fa-regular fa-clock"></i>
-               ${formatTime(dueTime)}</span>
-            </div>
-      </div>
-      <div class="task-actions">
-        <i class="fa-solid fa-arrow-right"></i>
-        <i class="fa-solid fa-trash"></i>
-      </div>
-  `;
-
-  // Prepend to the active list so it appears at the top
-  activeList.prepend(detailedTask);
+  // Render the task card
+  renderTaskCard(
+    {
+      taskName,
+      description,
+      priority,
+      category,
+      dueTime,
+      isCompleted: false,
+      isDetailed: true,
+    },
+    true,
+  );
 
   form.reset(); // Clear all form fields
   updateAllStatUI();
@@ -476,13 +594,29 @@ form.addEventListener("submit", function (e) {
 // ============================================================
 // COMPLETE TASK
 // When the user checks a checkbox in the active list,
-// move the task card to the done list.
+// move the task card to the done list and update localStorage.
 // ============================================================
 activeList.addEventListener("change", (e) => {
   if (e.target.matches('input[type="checkbox"]')) {
     if (!e.target.checked) return; // Ignore when unchecking
 
     const task = e.target.closest(".task-card");
+    const taskTitle = task.querySelector(".task-card__title").textContent;
+
+    // Update localStorage if user is signed in
+    if (currentUser) {
+      const users = getUsers();
+      const user = users.find((u) => u.email === currentUser.email);
+      if (user && user.allTasks) {
+        const taskObj = user.allTasks.find((t) => t.taskName === taskTitle);
+        if (taskObj) {
+          taskObj.isCompleted = true;
+          saveUsers(users);
+          currentUser = user;
+        }
+      }
+    }
+
     doneList.prepend(task); // Move to the done list
 
     // Update all stat UI
@@ -496,13 +630,29 @@ activeList.addEventListener("change", (e) => {
 // ============================================================
 // UNCOMPLETE TASK
 // When the user unchecks a checkbox in the done list,
-// move the task card back to the active list.
+// move the task card back to the active list and update localStorage.
 // ============================================================
 doneList.addEventListener("change", (e) => {
   if (e.target.matches('input[type="checkbox"]')) {
     if (e.target.checked) return; // Ignore when checking
 
     const task = e.target.closest(".task-card");
+    const taskTitle = task.querySelector(".task-card__title").textContent;
+
+    // Update localStorage if user is signed in
+    if (currentUser) {
+      const users = getUsers();
+      const user = users.find((u) => u.email === currentUser.email);
+      if (user && user.allTasks) {
+        const taskObj = user.allTasks.find((t) => t.taskName === taskTitle);
+        if (taskObj) {
+          taskObj.isCompleted = false;
+          saveUsers(users);
+          currentUser = user;
+        }
+      }
+    }
+
     activeList.prepend(task); // Move back to the active list
 
     // Update all stat UI
@@ -517,13 +667,26 @@ doneList.addEventListener("change", (e) => {
 // DELETE TASK: handleDelete
 // Uses event delegation — listens on the entire list container.
 // When the trash icon inside a task card is clicked,
-// that card is removed from the list.
+// that card is removed from the list and localStorage.
 // ============================================================
 const handleDelete = function (listElement) {
   listElement.addEventListener("click", (e) => {
     if (e.target.matches(".fa-trash")) {
       e.stopPropagation(); // Prevent triggering other click events
       const task = e.target.closest(".task-card");
+      const taskTitle = task.querySelector(".task-card__title").textContent;
+
+      // Update localStorage if user is signed in
+      if (currentUser) {
+        const users = getUsers();
+        const user = users.find((u) => u.email === currentUser.email);
+        if (user && user.allTasks) {
+          user.allTasks = user.allTasks.filter((t) => t.taskName !== taskTitle);
+          saveUsers(users);
+          currentUser = user;
+        }
+      }
+
       listElement.removeChild(task);
       // Update all stat UI
       updateAllStatUI();
@@ -897,6 +1060,8 @@ const handleSignUp = function (e) {
   e.preventDefault();
   const data = new FormData(registrationForm);
 
+  const users = getUsers();
+
   const data_values = {
     fullName: data.get("fullname").trim(),
     email: data.get("email").trim(),
@@ -913,7 +1078,17 @@ const handleSignUp = function (e) {
   }
 
   if (fullName && email && password) {
-    users.push({ fullName, email, password });
+    users.push({
+      fullName,
+      email,
+      password,
+      cards: [],
+      quickInputTaskName: [],
+      detailedInputTaskName: [],
+      detailedInputDescript: [],
+      priority: [],
+      catergories: [],
+    });
     saveUsers(users);
 
     document
@@ -934,7 +1109,7 @@ const showSpinner = function () {
   setTimeout(() => spinner.classList.remove("spinner-active"), 3500);
 };
 
-const firstNameUpper = (name) => {
+const formatFirstName = (name) => {
   return name
     .toLowerCase()
     .split(" ")
@@ -943,32 +1118,29 @@ const firstNameUpper = (name) => {
     .join(" ");
 };
 
-console.log(firstNameUpper("Ralp lauren gungon"));
-
 const handleSignIn = function (e) {
   e.preventDefault();
 
-  const emailInput = document.querySelector(
-    '.signIn-group input[type="email"]',
-  );
-  const passwordInput = document.querySelector(
-    '.signIn-group input[type="password"]',
-  );
+  const users = getUsers();
 
   const username = document.querySelector(".username");
-
   const user = users.find(
     (user) =>
       user.email === emailInput.value && user.password === passwordInput.value,
   );
-
   if (user) {
+    currentUser = user;
     showSpinner();
     formContainer.classList.add("not-active");
     emailInput.value = passwordInput.value = "";
-    username.textContent = firstNameUpper(user.fullName);
+    username.textContent = formatFirstName(user.fullName);
 
-    displayGreet(today, firstNameUpper(user.fullName));
+    displayGreet(today, formatFirstName(user.fullName));
+
+    // Load and render user's tasks from localStorage
+    setTimeout(() => {
+      loadUserTasks();
+    }, 500);
   } else {
     alert("Invalid email or password. Please try again.");
   }
@@ -983,6 +1155,10 @@ const handleLogOut = function (e) {
   overlay.classList.remove("sidebar-active");
   sidebarEl.classList.remove("sidebar-active");
   formContainer.classList.remove("not-active");
+  currentUser = null;
+  activeList.innerHTML = "";
+  doneList.innerHTML = "";
+  updateAllStatUI();
   showSpinner();
 };
 
