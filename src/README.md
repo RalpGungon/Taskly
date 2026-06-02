@@ -15,27 +15,25 @@ Open `index.html` directly in any modern browser — no build step, no dependenc
 ### Dashboard
 
 _Main app interface featuring sidebar navigation, stat cards, filters, and task lists._
- ![Dashboard](https://github.com/RalpGungon/Taskly/blob/344a97a2003e76ca7882f03464adec74a7b6bc0b/src/images/screenshots/dashboard.png) 
-
+![Dashboard](https://github.com/RalpGungon/Taskly/blob/344a97a2003e76ca7882f03464adec74a7b6bc0b/src/images/screenshots/dashboard.png)
 
 ### Task Detail Panel
 
 _Slide-in task detail panel with editable notes and task metadata._
 
-![Task Detail Panel](https://github.com/RalpGungon/Taskly/blob/1c7c6ec01cb91793de541f4ba3ba5631700a9bfe/src/images/screenshots/taskdetailpanel.png) 
+![Task Detail Panel](https://github.com/RalpGungon/Taskly/blob/1c7c6ec01cb91793de541f4ba3ba5631700a9bfe/src/images/screenshots/taskdetailpanel.png)
 
 ### Quick Add Overlay
 
 _Lightweight overlay for rapid task creation with priority selection._
 
- ![Quick Add Overlay](https://github.com/RalpGungon/Taskly/blob/cf9a0661cb1288fabe5c77fde49ab2006aae404f/src/images/screenshots/quickAddOverlay.png)
+![Quick Add Overlay](https://github.com/RalpGungon/Taskly/blob/cf9a0661cb1288fabe5c77fde49ab2006aae404f/src/images/screenshots/quickAddOverlay.png)
 
 ### Empty State
 
 _Empty state banner displayed when no active tasks remain._
 
-
-![Empty State](https://github.com/RalpGungon/Taskly/blob/619a5e4eda249d038869a6d32e3f9b33f1396056/src/images/screenshots/emptystate.png) 
+![Empty State](https://github.com/RalpGungon/Taskly/blob/619a5e4eda249d038869a6d32e3f9b33f1396056/src/images/screenshots/emptystate.png)
 
 ---
 
@@ -155,7 +153,6 @@ _Empty state banner displayed when no active tasks remain._
 
 ## File Structure
 
-```text
 src/
 ├── index.html
 ├── media.css
@@ -163,7 +160,8 @@ src/
 ├── script.js
 ├── style.css
 └── images/
-```
+
+````
 
 The app is built using simple separated frontend files — no frameworks, build tools, or package managers required.
 
@@ -184,39 +182,41 @@ The app is built using simple separated frontend files — no frameworks, build 
 
 ## App State
 
-Taskly currently manages application state directly through the DOM.
+Taskly manages UI state directly through the DOM — task cards are created, moved, and updated in-place without an external state library.
 
-Task cards are dynamically created and moved between active and completed task containers without using a separate JavaScript state array or external state management library.
+Persisted user data: when a user creates an account and signs in, their tasks are stored in the browser's `localStorage` under a per-user record. Tasks will be reloaded after signing in, so data persists across page reloads for that account.
 
-State resets on page refresh.
-
-Taskly is currently a frontend-focused prototype emphasizing UI/UX and client-side interactions.
+The prototype remains frontend-focused and intentionally lightweight: all logic runs client-side using vanilla JavaScript.
 
 ---
 
 ## Key Functions
 
-| Function                               | Description                                                  |
-| -------------------------------------- | ------------------------------------------------------------ |
-| `updateAllStatUI()`                    | Updates all stat cards and badge counts                      |
-| `showNotification(message)`            | Displays toast notifications                                 |
-| `hidePanel()`                          | Closes the task detail panel                                 |
-| `displayGreet(today)`                  | Displays a time-based greeting                               |
-| `displayDate(labelDate, date, locale)` | Formats and renders the current date                         |
-| `openTaskOverlay(overlay)`             | Opens a modal overlay                                        |
-| `closeTaskOverlay(el)`                 | Closes a modal overlay                                       |
-| `handleClickOverlay(currEl, el)`       | Closes overlay when clicking outside modal content           |
-| `darkToggle`                           | Toggles the UI between dark and light theme modes            |
-| `selectedPriority(chip)`               | Handles active priority chip selection                       |
-| `showEmptyTaskState(el, length)`       | Displays the empty state banner                              |
-| `hideEmptyTaskState(el, length)`       | Hides the empty state banner                                 |
-| `createTaskCard()`                     | Creates and prepends a task card                             |
-| `formatTime(duetime)`                  | Converts 24-hour time into AM/PM format                      |
-| `handleDelete(listElement)`            | Handles task deletion logic                                  |
-| `handleShowTaskDetails(element)`       | Opens task detail panel                                      |
-| `animationFrame(cards)`                | Re-triggers card animations using `requestAnimationFrame`    |
-| `setupPanelNoteEditing()`              | Enables editable notes functionality inside the detail panel |
-| `clearInput()`                         | Clears quick add and full form task name input fields        |
+| Function                                     | Description                                                  |
+| -------------------------------------------- | ------------------------------------------------------------ |
+| `getUsers()`                                  | Reads stored users and app data from `localStorage`         |
+| `saveUsers(users)`                            | Persists users and their tasks to `localStorage`            |
+| `renderTaskCard(taskData, isDetailedTask)`    | Creates and renders a task card element                      |
+| `loadUserTasks()`                             | Loads the signed-in user's tasks from `localStorage`        |
+| `updateAllStatUI()`                           | Updates all stat cards and badge counts                      |
+| `showNotification(message)`                   | Displays toast notifications                                 |
+| `hidePanel()`                                 | Closes the task detail panel                                 |
+| `displayGreet(today, greetingName)`           | Displays a time-based greeting (supports name injection)     |
+| `displayDate(labelDate, date, locale)`        | Formats and renders the current date                         |
+| `openTaskOverlay(overlay)`                    | Opens a modal overlay                                        |
+| `closeTaskOverlay(el)`                        | Closes a modal overlay                                       |
+| `handleClickOverlay(currEl, el)`              | Closes overlay when clicking outside modal content           |
+| `createTaskCard()`                            | Quick-add task creation from the top bar                     |
+| `formatTime(duetime)`                         | Converts 24-hour time into AM/PM format                      |
+| `handleDelete(listElement)`                   | Handles task deletion logic                                  |
+| `handleShowTaskDetails(element)`              | Opens task detail panel                                      |
+| `setupPanelNoteEditing()`                     | Enables editable notes functionality inside the detail panel |
+| `handleSignUp(e)`                             | Handles account creation and local persistence               |
+| `handleSignIn(e)`                             | Handles sign-in, loads user data, and initializes UI         |
+| `handleLogOut(e)`                             | Signs out the user and clears in-memory UI state             |
+| `showSpinner()`                               | Shows a temporary loading spinner overlay                    |
+| `animationFrame(cards)`                       | Re-triggers card animations using `requestAnimationFrame`    |
+| `clearInput()`                                | Clears quick add and full form task name input fields        |
 
 ---
 
@@ -237,13 +237,21 @@ Building Taskly helped strengthen my understanding of:
 
 1. Clone or download this repository
 2. Open `index.html` in any modern browser
-3. No installation or dependencies required
+3. Create an account (optional) via the built-in Sign up form to persist tasks per-user
+4. No installation or dependencies required — app runs entirely in the browser
 
 ```bash
 git clone https://github.com/RalpGungon/Taskly.git
 cd Taskly
-open index.html
-```
+# Open the app in your default browser (Windows)
+start src\index.html
+# Or open the file directly from your file manager
+````
+
+Notes:
+
+- Tasks and user accounts are persisted to the browser's `localStorage` (per-user).
+- To test persistence: create an account with the Sign up form, add tasks while signed in, then reload the page and Sign in to the same account — your tasks will reappear.
 
 ---
 
@@ -262,7 +270,7 @@ open index.html
 
 ### Data & Persistence
 
-- [ ] LocalStorage or IndexedDB persistence
+- [x] LocalStorage persistence (per-user) — implemented
 - [ ] Export tasks as CSV or PDF
 - [ ] Cloud authentication integration (Firebase / Supabase)
 
