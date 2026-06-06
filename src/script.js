@@ -986,46 +986,6 @@ menuList.addEventListener("click", (e) => {
   });
 });
 
-// ============================================================
-// Dark mode toggle
-// Toggles the document theme and updates the icon + label text.
-// ============================================================
-const darkToggle = document.querySelector(".dark-toggle"); // theme switch button
-const themeIcon = document.getElementById("themeIcon"); // current theme icon element
-const themeIconLabel = document.getElementById("themeLabel"); // text label below the icon
-const toggleTrack = document.querySelector(".toggle-track"); // visual switch track
-const toggleThumb = document.querySelector(".toggle-thumb"); // switch thumb handle
-
-darkToggle.addEventListener("click", () => {
-  const isDark = document.documentElement.classList.toggle("dark"); // toggle dark theme class
-  themeIcon.classList.remove("anim-sun", "anim-moon"); // clear any existing icon animation
-
-  if (isDark) {
-    themeIcon.textContent = "🌙"; // show moon icon for dark theme
-    themeIcon.classList.add("anim-moon"); // apply moon entry animation
-    themeIconLabel.textContent = "Dark mode"; // set label for dark theme
-  } else {
-    themeIcon.textContent = "☀️"; // show sun icon for light theme
-    themeIcon.classList.add("anim-sun"); // apply sun entry animation
-    themeIconLabel.textContent = "Light mode"; // set label for light theme
-  }
-});
-
-// Tablet Mobile Menu
-const btnMenu = document.querySelector(".fa-bars");
-const sidebarEl = document.querySelector(".sidebar");
-const overlay = document.querySelector(".sidebar-overlay");
-
-btnMenu.addEventListener("click", function (e) {
-  sidebarEl.classList.add("sidebar-active");
-  overlay.classList.add("sidebar-active");
-});
-
-overlay.addEventListener("click", function (e) {
-  sidebarEl.classList.remove("sidebar-active");
-  overlay.classList.remove("sidebar-active");
-});
-
 // Form
 const authTabs = document.querySelector(".auth-tabs");
 const handleFormTabs = function (e) {
@@ -1163,3 +1123,43 @@ const handleLogOut = function (e) {
 };
 
 logout.addEventListener("click", handleLogOut);
+
+// ============================================================
+// Dark mode toggle
+// Toggles the document theme and updates the icon + label text.
+// ============================================================
+const darkToggle = document.querySelector(".dark-toggle"); // theme switch button
+const themeIcon = document.getElementById("themeIcon"); // current theme icon element
+const themeIconLabel = document.getElementById("themeLabel"); // text label below the icon
+const toggleTrack = document.querySelector(".toggle-track"); // visual switch track
+const toggleThumb = document.querySelector(".toggle-thumb"); // switch thumb handle
+
+darkToggle.addEventListener("click", () => {
+  const isDark = document.documentElement.classList.toggle("dark"); // toggle dark theme class
+  themeIcon.classList.remove("anim-sun", "anim-moon"); // clear any existing icon animation
+
+  if (isDark) {
+    themeIcon.textContent = "🌙"; // show moon icon for dark theme
+    themeIcon.classList.add("anim-moon"); // apply moon entry animation
+    themeIconLabel.textContent = "Dark mode"; // set label for dark theme
+  } else {
+    themeIcon.textContent = "☀️"; // show sun icon for light theme
+    themeIcon.classList.add("anim-sun"); // apply sun entry animation
+    themeIconLabel.textContent = "Light mode"; // set label for light theme
+  }
+});
+
+// Tablet Mobile Menu
+const btnMenu = document.querySelector(".fa-bars");
+const sidebarEl = document.querySelector(".sidebar");
+const overlay = document.querySelector(".sidebar-overlay");
+
+btnMenu.addEventListener("click", function (e) {
+  sidebarEl.classList.add("sidebar-active");
+  overlay.classList.add("sidebar-active");
+});
+
+overlay.addEventListener("click", function (e) {
+  sidebarEl.classList.remove("sidebar-active");
+  overlay.classList.remove("sidebar-active");
+});
