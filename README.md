@@ -6,7 +6,7 @@ A clean, minimalist task management web app prototype built as a portfolio proje
 
 ## Live Preview
 
-Open `index.html` directly in any modern browser — no build step, no dependencies, and no server required.
+Open `src/index.html` directly in any modern browser — no build step, no dependencies, and no server required.
 
 ---
 
@@ -44,6 +44,12 @@ _Empty state banner displayed when no active tasks remain._
 - **Quick add bar** — Instantly create tasks by typing a title and pressing Enter or clicking Add
 - **Priority chips** — Select High / Med / Low priority before task creation
 - **Full task form** — Create detailed tasks with title, description, category, priority, and due time
+
+### User Authentication & Persistence
+
+- Built-in **Sign in** and **Create account** forms for per-user access
+- Tasks are saved to browser `localStorage` for each signed-in account
+- Reloading and signing in again restores tasks, stats, and badges
 
 ### Task Management
 
@@ -236,7 +242,7 @@ Building Taskly helped strengthen my understanding of:
 ## How to Run
 
 1. Clone or download this repository
-2. Open `index.html` in any modern browser
+2. Open `src/index.html` in any modern browser
 3. Create an account (optional) via the built-in Sign up form to persist tasks per-user
 4. No installation or dependencies required — app runs entirely in the browser
 
