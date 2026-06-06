@@ -1042,12 +1042,6 @@ const handleSignUp = function (e) {
       fullName,
       email,
       password,
-      cards: [],
-      quickInputTaskName: [],
-      detailedInputTaskName: [],
-      detailedInputDescript: [],
-      priority: [],
-      catergories: [],
     });
     saveUsers(users);
 
@@ -1090,6 +1084,12 @@ const handleSignIn = function (e) {
   );
   if (user) {
     currentUser = user;
+    // Persist signed-in user so session survives page refresh
+    try {
+      localStorage.setItem("current_user_email", user.email);
+    } catch (err) {
+      console.warn("Failed to persist current user:", err);
+    }
     showSpinner();
     formContainer.classList.add("not-active");
     emailInput.value = passwordInput.value = "";
@@ -1116,6 +1116,12 @@ const handleLogOut = function (e) {
   sidebarEl.classList.remove("sidebar-active");
   formContainer.classList.remove("not-active");
   currentUser = null;
+  // Clear persisted session
+  try {
+    localStorage.removeItem("current_user_email");
+  } catch (err) {
+    console.warn("Failed to clear persisted current user:", err);
+  }
   activeList.innerHTML = "";
   doneList.innerHTML = "";
   updateAllStatUI();
@@ -1163,3 +1169,36 @@ overlay.addEventListener("click", function (e) {
   sidebarEl.classList.remove("sidebar-active");
   overlay.classList.remove("sidebar-active");
 });
+
+// Restore session on page load if a user was previously signed in
+const restoreSession = function () {
+  try {
+    const email = localStorage.getItem("current_user_email");
+    if (!email) return;
+
+    const users = getUsers();
+    const user = users.find((u) => u.email === email);
+
+    if (!user) {
+      // If the user no longer exists, clear the saved email
+      localStorage.removeItem("current_user_email");
+      return;
+    }
+
+    currentUser = user;
+    formContainer.classList.add("not-active");
+    const username = document.querySelector(".username");
+    if (username) username.textContent = formatFirstName(user.fullName);
+    displayGreet(today, formatFirstName(user.fullName));
+    // Load tasks with the same slight delay used during sign-in
+    showSpinner();
+    setTimeout(() => {
+      loadUserTasks();
+    }, 500);
+  } catch (err) {
+    console.warn("Failed to restore session:", err);
+  }
+};
+
+// Attempt to restore a previous session when the script loads
+restoreSession();
