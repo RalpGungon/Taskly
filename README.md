@@ -126,37 +126,6 @@ _Empty state banner displayed when no active tasks remain._
 
 ---
 
-## Design System
-
-### Color Palette
-
-| Role             | Value                                             |
-| ---------------- | ------------------------------------------------- |
-| Background       | `#F5F2EC` — soft warm neutral                     |
-| Surface (white)  | `#FFFFFF` — cards, sidebar, modals                |
-| Surface (tinted) | `#EDE9E1` — secondary backgrounds                 |
-| Surface (subtle) | `#D0CEC5` — scrollbar track                       |
-| Primary text     | `#2C2C2A` — near-black                            |
-| Muted text       | `#888780` — secondary labels                      |
-| Faint text       | `#B4B2A9` — placeholders                          |
-| Accent           | `#1D9E75` — primary action color                  |
-| Accent light     | `#E1F5EE` — active nav background                 |
-| Overlay bg       | `rgba(44, 44, 42, 0.4)` — modal overlay with blur |
-
-### Typography
-
-| Role               | Font                            |
-| ------------------ | ------------------------------- |
-| Headings & display | DM Serif Display (Google Fonts) |
-| Body & UI          | DM Sans (Google Fonts)          |
-
-### Font Weights
-
-- `400` — body text and descriptions
-- `500` — titles, labels, buttons, and stat values
-
----
-
 ## File Structure
 
 src/
