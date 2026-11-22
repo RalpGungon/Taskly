@@ -186,45 +186,6 @@ The app is built using simple separated frontend files — no frameworks, build 
 
 ---
 
-## App State
-
-Taskly manages UI state directly through the DOM — task cards are created, moved, and updated in-place without an external state library.
-
-Persisted user data: when a user creates an account and signs in, their tasks are stored in the browser's `localStorage` under a per-user record. Tasks will be reloaded after signing in, so data persists across page reloads for that account.
-
-The prototype remains frontend-focused and intentionally lightweight: all logic runs client-side using vanilla JavaScript.
-
----
-
-## Key Functions
-
-| Function                                     | Description                                                  |
-| -------------------------------------------- | ------------------------------------------------------------ |
-| `getUsers()`                                  | Reads stored users and app data from `localStorage`         |
-| `saveUsers(users)`                            | Persists users and their tasks to `localStorage`            |
-| `renderTaskCard(taskData, isDetailedTask)`    | Creates and renders a task card element                      |
-| `loadUserTasks()`                             | Loads the signed-in user's tasks from `localStorage`        |
-| `updateAllStatUI()`                           | Updates all stat cards and badge counts                      |
-| `showNotification(message)`                   | Displays toast notifications                                 |
-| `hidePanel()`                                 | Closes the task detail panel                                 |
-| `displayGreet(today, greetingName)`           | Displays a time-based greeting (supports name injection)     |
-| `displayDate(labelDate, date, locale)`        | Formats and renders the current date                         |
-| `openTaskOverlay(overlay)`                    | Opens a modal overlay                                        |
-| `closeTaskOverlay(el)`                        | Closes a modal overlay                                       |
-| `handleClickOverlay(currEl, el)`              | Closes overlay when clicking outside modal content           |
-| `createTaskCard()`                            | Quick-add task creation from the top bar                     |
-| `formatTime(duetime)`                         | Converts 24-hour time into AM/PM format                      |
-| `handleDelete(listElement)`                   | Handles task deletion logic                                  |
-| `handleShowTaskDetails(element)`              | Opens task detail panel                                      |
-| `setupPanelNoteEditing()`                     | Enables editable notes functionality inside the detail panel |
-| `handleSignUp(e)`                             | Handles account creation and local persistence               |
-| `handleSignIn(e)`                             | Handles sign-in, loads user data, and initializes UI         |
-| `handleLogOut(e)`                             | Signs out the user and clears in-memory UI state             |
-| `showSpinner()`                               | Shows a temporary loading spinner overlay                    |
-| `animationFrame(cards)`                       | Re-triggers card animations using `requestAnimationFrame`    |
-| `clearInput()`                                | Clears quick add and full form task name input fields        |
-
----
 
 ## Challenges & Learnings
 
@@ -279,19 +240,6 @@ Notes:
 - [x] LocalStorage persistence (per-user) — implemented
 - [ ] Export tasks as CSV or PDF
 - [ ] Cloud authentication integration (Firebase / Supabase)
-
----
-
-## Portfolio Notes
-
-This project was built as a frontend portfolio piece demonstrating:
-
-- Clean UI/UX design from scratch
-- Multi-screen application structure without frameworks
-- DOM-driven task management
-- Thoughtful interaction design and user feedback
-- Consistent typography, spacing, and color hierarchy
-- Modern frontend fundamentals using only HTML, CSS, and JavaScript
 
 ---
 
